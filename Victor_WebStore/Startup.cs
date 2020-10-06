@@ -44,6 +44,9 @@ namespace Victor_WebStore
                 endpoints.MapControllerRoute(
                     "default", 
                     "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute(
+                    "default",
+                    "{controller=Products}/{action=All}/{id?}");
 
                 endpoints.MapGet("/", async context =>
                 {

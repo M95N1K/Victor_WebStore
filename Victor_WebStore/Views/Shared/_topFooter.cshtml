@@ -1,0 +1,16 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+</head>
+<body>
+    <div class="topMenu" style="display: flex;
+                                    justify-content: space-between;">
+        <p>@Html.ActionLink("Работники", "Employee","Home")</p>
+        <p>@Html.ActionLink("Товар", "All", "Products")</p>
+    </div>
+    @RenderBody()
+</body>
+</html>

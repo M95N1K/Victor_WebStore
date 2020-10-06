@@ -1,0 +1,21 @@
+﻿@model IEnumerable<Victor_WebStore.ViewModels.ProductsViewModel>
+
+@{
+    Layout = "_topFooter";
+}
+<div class="block" style="display: flex;
+                           justify-content: space-around">
+    @foreach (var item in Model)
+    {
+        <a href="./ProductDetails/@item.Id">
+            <div class="card" style="border: 1px solid black;
+                                min-width: 150px">
+                <img src="#" alt="IMG" />
+                <p>@item.Manufacturer</p>
+                <p>@item.Model</p>
+                <p style="text-align:right">@item.Price p.</p>
+            </div>
+        </a>
+    }
+</div>
+

@@ -1,5 +1,7 @@
 ﻿@model Victor_WebStore.ViewModels.EmployeeViewModel
-
+@{
+    Layout = "_topFooter";
+}
 <div class="details" style="display: flex">
     <div>
         <img src="#" alt="Foto" style="border: 1px solid black; height: 100%" />
@@ -18,5 +20,5 @@
             <td>@Model.Age</td>
         </tr>
     </table>
-</div class="details" style="">
+</div>
 @Html.ActionLink("Назад", "Employee")

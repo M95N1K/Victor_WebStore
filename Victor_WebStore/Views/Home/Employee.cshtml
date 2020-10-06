@@ -1,5 +1,7 @@
 ﻿@model IEnumerable<Victor_WebStore.ViewModels.EmployeeViewModel>
-
+@{
+    Layout = "_topFooter";
+}
 <table class="table">
     @foreach (var item in Model)
     {
@@ -7,7 +9,7 @@
             <td>@item.Name</td>
             <td>@item.Age</td>
             <td>
-                @Html.ActionLink("Детали", "EmployeeDetails", new  {id = item.Id })
+                @Html.ActionLink("Детали", "EmployeeDetails", new { id = item.Id })
             </td>
         </tr>
     }

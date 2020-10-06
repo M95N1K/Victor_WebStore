@@ -22,6 +22,12 @@ namespace Victor_WebStore.Controllers
                 Id = 2,
                 Age = 30,
                 Name = "Алексей"
+            },
+            new EmployeeViewModel()
+            {
+                Id = 3,
+                Age = 30,
+                Name = "Василий"
             }
         };
 
