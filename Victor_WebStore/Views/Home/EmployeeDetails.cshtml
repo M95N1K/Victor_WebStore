@@ -1,0 +1,22 @@
+﻿@model Victor_WebStore.ViewModels.EmployeeViewModel
+
+<div class="details" style="display: flex">
+    <div>
+        <img src="#" alt="Foto" style="border: 1px solid black; height: 100%" />
+    </div>
+    <table class="table table-border">
+        <tr>
+            <td>Id</td>
+            <td>@Model.Id</td>
+        </tr>
+        <tr>
+            <td>Имя</td>
+            <td>@Model.Name</td>
+        </tr>
+        <tr>
+            <td>Возраст</td>
+            <td>@Model.Age</td>
+        </tr>
+    </table>
+</div class="details" style="">
+@Html.ActionLink("Назад", "Employee")
