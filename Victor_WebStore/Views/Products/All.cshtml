@@ -1,21 +1,23 @@
 ﻿@model IEnumerable<Victor_WebStore.ViewModels.ProductsViewModel>
 
 @{
+    ViewData["Title"] = "Все товары";
     Layout = "_topFooter";
 }
-<div class="block" style="display: flex;
+<div class="block" style="display: flex; flex-wrap:wrap;
                            justify-content: space-around">
     @foreach (var item in Model)
     {
-        <a href="./ProductDetails/@item.Id">
-            <div class="card" style="border: 1px solid black;
-                                min-width: 150px">
-                <img src="#" alt="IMG" />
-                <p>@item.Manufacturer</p>
-                <p>@item.Model</p>
-                <p style="text-align:right">@item.Price p.</p>
+        <div class="card" style="width: 18rem;">
+            <img src="#" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">@item.Manufacturer</h5>
+                <p class="card-text">@item.Model</p>
+                @Html.ActionLink("Подробнее", "ProductDetails","products", 
+                        new { id = item.Id },new { @class = "btn btn-primary" })
+                
             </div>
-        </a>
+        </div>
     }
 </div>
 

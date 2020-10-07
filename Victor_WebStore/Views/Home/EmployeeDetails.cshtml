@@ -1,10 +1,11 @@
 ﻿@model Victor_WebStore.ViewModels.EmployeeViewModel
 @{
     Layout = "_topFooter";
+    ViewData["Title"] = Model.Name;
 }
 <div class="details" style="display: flex">
     <div>
-        <img src="#" alt="Foto" style="border: 1px solid black; height: 100%" />
+        <img src="#" alt="Foto" style="border: 1px solid black" />
     </div>
     <table class="table table-border">
         <tr>
@@ -21,4 +22,4 @@
         </tr>
     </table>
 </div>
-@Html.ActionLink("Назад", "Employee")
+@Html.ActionLink("Назад", "Employee","Home", null, new { @class = "btn btn-primary" })

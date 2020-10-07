@@ -1,6 +1,7 @@
 ﻿@model Victor_WebStore.ViewModels.ProductsViewModel
 @{
     Layout = "_topFooter";
+    ViewData["Title"] = Model.Model;
 }
 <div class="details" style="display: flex; flex-wrap:wrap">
     <div>
@@ -32,4 +33,4 @@
     </table>
 </div>
 
-<p>@Html.ActionLink("Назад", "All")</p>
+<p>@Html.ActionLink("Назад", "All","products",null,new { @class = "btn btn-primary" })</p>
