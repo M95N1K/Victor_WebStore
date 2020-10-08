@@ -33,22 +33,8 @@ namespace Victor_WebStore.Controllers
 
         public IActionResult Index()
         {
-            //return Content("HWfController");
             return View();
         }
-        //public IActionResult Employee()
-        //{
-        //    return View(_employees);
-        //}
 
-        //public IActionResult EmployeeDetails(int id)
-        //{
-        //    var employeeVM = _employees.FirstOrDefault(x => x.Id == id);
-
-        //    if (employeeVM == null)
-        //        return NotFound();
-
-        //    return View(employeeVM);
-        //}
     }
 }

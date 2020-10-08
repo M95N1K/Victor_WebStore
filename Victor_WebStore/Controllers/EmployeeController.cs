@@ -31,11 +31,6 @@ namespace Victor_WebStore.Controllers
             }
         };
 
-        //public IActionResult Index()
-        //{
-        //    //return Content("HWfController");
-        //    return View();
-        //}
         public IActionResult Employee()
         {
             return View(_employees);
