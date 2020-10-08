@@ -7,7 +7,7 @@ using Victor_WebStore.ViewModels;
 
 namespace Victor_WebStore.Controllers
 {
-    public class HomeController : Controller
+    public class EmployeeController : Controller
     {
         private List<EmployeeViewModel> _employees = new List<EmployeeViewModel>()
         {
@@ -31,24 +31,24 @@ namespace Victor_WebStore.Controllers
             }
         };
 
-        public IActionResult Index()
+        //public IActionResult Index()
+        //{
+        //    //return Content("HWfController");
+        //    return View();
+        //}
+        public IActionResult Employee()
         {
-            //return Content("HWfController");
-            return View();
+            return View(_employees);
         }
-        //public IActionResult Employee()
-        //{
-        //    return View(_employees);
-        //}
 
-        //public IActionResult EmployeeDetails(int id)
-        //{
-        //    var employeeVM = _employees.FirstOrDefault(x => x.Id == id);
+        public IActionResult EmployeeDetails(int id)
+        {
+            var employeeVM = _employees.FirstOrDefault(x => x.Id == id);
 
-        //    if (employeeVM == null)
-        //        return NotFound();
+            if (employeeVM == null)
+                return NotFound();
 
-        //    return View(employeeVM);
-        //}
+            return View(employeeVM);
+        }
     }
 }
