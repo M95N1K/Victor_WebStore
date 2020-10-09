@@ -35,6 +35,8 @@ namespace Victor_WebStore
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseStaticFiles();
+
             var hellp = _configuration["CustomHW"];
 
             app.UseRouting();

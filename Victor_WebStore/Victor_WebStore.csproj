@@ -6,6 +6,16 @@
 
   <ItemGroup>
     <Content Remove="Views\Shared\_topFooter.cshtml" />
+    <Content Remove="wwwroot\404.html" />
+    <Content Remove="wwwroot\blog-single.html" />
+    <Content Remove="wwwroot\blog.html" />
+    <Content Remove="wwwroot\cart.html" />
+    <Content Remove="wwwroot\checkout.html" />
+    <Content Remove="wwwroot\contact-us.html" />
+    <Content Remove="wwwroot\index.html" />
+    <Content Remove="wwwroot\login.html" />
+    <Content Remove="wwwroot\product-details.html" />
+    <Content Remove="wwwroot\shop.html" />
   </ItemGroup>
 
   <ItemGroup>
