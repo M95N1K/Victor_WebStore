@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Victor_WebStore.Infrastructure.Interfaces;
+using Victor_WebStore.Infrastructure.Services;
 
 namespace Victor_WebStore
 {
@@ -25,6 +27,7 @@ namespace Victor_WebStore
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddSingleton<IEmployeesService, InMemoryEmployeesService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
