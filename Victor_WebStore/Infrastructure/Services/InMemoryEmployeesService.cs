@@ -33,7 +33,10 @@ namespace Victor_WebStore.Infrastructure.Services
 
         public void AddNew(EmployeeViewModel persona)
         {
-            persona.Id = _employees.Max(e => e.Id) + 1;
+            if (_employees.Count > 0) //Ищем максимальный Id если список не пуст
+                persona.Id = _employees.Max(e => e.Id) + 1;
+            else
+                persona.Id = 1;
             _employees.Add(persona);
         }
 
