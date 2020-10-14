@@ -3,15 +3,22 @@
 @{
     ViewData["Title"] = "Все товары";
 }
+
+<p><a asp-action="Edit" class="btn btn-success">Добавить</a></p>
 <div class="block" style="display: flex; flex-wrap:wrap;
                            justify-content: space-around">
     @foreach (var item in Model)
     {
         <div class="card" style="width: 18rem;">
+            <div style="display: flex;justify-content: space-between">
+                <a asp-action="Edit" asp-route-id="@item.Id"><i class="fa fa-edit"></i></a>
+                <a asp-action="Delete" asp-route-id="@item.Id"><i class="fa fa-trash-o"></i></a>
+            </div>
             <img src="#" class="card-img-top" alt="...">
             <div class="card-body">
                 <h5 class="card-title">@item.Manufacturer</h5>
                 <p class="card-text">@item.Model</p>
+                <p class="card-text" style="text-align: right">@item.Price p.</p>
                 @Html.ActionLink("Подробнее", "ProductDetails","products", 
                         new { id = item.Id },new { @class = "btn btn-primary" })
                 

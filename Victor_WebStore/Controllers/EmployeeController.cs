@@ -30,7 +30,7 @@ namespace Victor_WebStore.Controllers
             var employeeVM = _employeesService.GetById(id);
 
             if (employeeVM == null)
-                return NotFound();
+                return RedirectToAction("NotFound404", "Home");
 
             return View(employeeVM);
         }
@@ -44,7 +44,7 @@ namespace Victor_WebStore.Controllers
 
             var model = _employeesService.GetById(id.Value);
             if (model == null)
-                return NotFound();// возвращаем результат 404 Not Found
+                return RedirectToAction("NotFound404", "Home");// возвращаем результат 404 Not Found
 
             return View(model);
         }
@@ -57,7 +57,7 @@ namespace Victor_WebStore.Controllers
             {
                 var item = _employeesService.GetById(persona.Id);
                 if (ReferenceEquals(item, null))
-                    return NotFound();
+                    return RedirectToAction("NotFound404", "Home");
 
                 item.Name = persona.Name;
                 item.Age = persona.Age;
