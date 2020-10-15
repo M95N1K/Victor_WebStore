@@ -74,8 +74,18 @@ namespace Victor_WebStore.Controllers
         [Route("delete/{id}")]
         public IActionResult Delete(int Id)
         {
-            _productsService.Delete(Id);
+            //_productsService.Delete(Id);
+            //return RedirectToAction(nameof(All));
+            return View(_productsService.GetById(Id));
+        }
+
+        [HttpPost]
+        [Route("delete/{id?}")]
+        public IActionResult Delete(ProductsViewModel model)
+        {
+            _productsService.Delete(model.Id);
             return RedirectToAction(nameof(All));
         }
+
     }
 }
