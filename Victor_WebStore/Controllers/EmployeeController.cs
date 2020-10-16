@@ -53,6 +53,11 @@ namespace Victor_WebStore.Controllers
         [Route("edit/{id?}")]
         public IActionResult Edit(EmployeeViewModel persona)
         {
+            if(!ModelState.IsValid)
+            {
+                return View(persona);
+            }
+
             if(persona.Id > 0)
             {
                 var item = _employeesService.GetById(persona.Id);
