@@ -233,42 +233,49 @@ namespace Victor_WebStore.Infrastructure.Services
                 {
                     Id = 1,
                     Name = "Acne",
+                    Count = 50,
                     Order = 0
                 },
                 new Brand()
                 {
                     Id = 2,
                     Name = "Grüne Erde",
+                    Count = 56,
                     Order = 1
                 },
                 new Brand()
                 {
                     Id = 3,
                     Name = "Albiro",
+                    Count = 27,
                     Order = 2
                 },
                 new Brand()
                 {
                     Id = 4,
                     Name = "Ronhill",
+                    Count = 32,
                     Order = 3
                 },
                 new Brand()
                 {
                     Id = 5,
                     Name = "Oddmolly",
+                    Count = 5,
                     Order = 4
                 },
                 new Brand()
                 {
                     Id = 6,
                     Name = "Boudestijn",
+                    Count = 9,
                     Order = 5
                 },
                 new Brand()
                 {
                     Id = 7,
                     Name = "Rösch creative culture",
+                    Count = 4,
                     Order = 6
                 },
             };

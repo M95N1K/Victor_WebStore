@@ -6,7 +6,7 @@ using Victor_WebStore.Domain.Entities.Base.Interfaces;
 
 namespace Victor_WebStore.Domain.Entities
 {
-    public class Category : NamedEntity, IOrderEdinty
+    public class Category : NamedEntity, IOrderEtinty
     {
         /// <summary>
         /// Родительская секция (при наличии)

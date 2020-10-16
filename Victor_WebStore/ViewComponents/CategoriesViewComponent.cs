@@ -14,7 +14,7 @@ namespace Victor_WebStore.ViewComponents
 
         public CategoriesViewComponent(IProductService productService)
         {
-            this._productService = productService;
+            _productService = productService;
         }
 
         public async Task<IViewComponentResult> InvokeAsync()

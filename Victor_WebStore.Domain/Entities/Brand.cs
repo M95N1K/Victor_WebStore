@@ -6,8 +6,9 @@ using Victor_WebStore.Domain.Entities.Base.Interfaces;
 
 namespace Victor_WebStore.Domain.Entities
 {
-    public class Brand : NamedEntity, IOrderEdinty
+    public class Brand : NamedEntity, IOrderEtinty, ICountEntity
     {
         public int Order { get; set; }
+        public int Count { get; set; }
     }
 }

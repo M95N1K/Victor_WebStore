@@ -4,8 +4,8 @@ using System.Text;
 
 namespace Victor_WebStore.Domain.Entities.Base.Interfaces
 {
-    public interface IOrderEdinty
+    public interface ICountEntity
     {
-        int Order { get; set; }
+        int Count { get; set; }
     }
 }
