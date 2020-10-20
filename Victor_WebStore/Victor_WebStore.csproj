@@ -5,6 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Controllers\ProductsController.cs" />
+    <Compile Remove="Infrastructure\Interfaces\IProductsService.cs" />
+    <Compile Remove="Infrastructure\Services\InMemoryProductsService.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="Views\Shared\_topFooter.cshtml" />
     <Content Remove="wwwroot\404.html" />
     <Content Remove="wwwroot\blog-single.html" />

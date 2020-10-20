@@ -29,7 +29,7 @@ namespace Victor_WebStore
         {
             services.AddMvc();
             services.AddSingleton<IEmployeesService, InMemoryEmployeesService>();
-            services.AddSingleton<IProductsService, InMemoryProductsService>();
+            //services.AddSingleton<IProductsService, InMemoryProductsService>();
             services.AddSingleton<IProductService, InMemoryProductService>();
         }
 
