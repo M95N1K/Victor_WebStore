@@ -1,27 +1,29 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 using Victor_WebStore.Domain.Entities;
-using Victor_WebStore.Domain.Entities.Base;
-using Victor_WebStore.Infrastructure.Interfaces;
 
-namespace Victor_WebStore.Infrastructure.Services
+namespace Victor_WebStore.DAL
 {
-    public class InMemoryProductService : IProductService
+    public class DbInitializer
     {
-        private readonly List<Category> _categories;
-        private readonly List<Brand> _brands;
-        private readonly List<Product> _products;
-
-        public InMemoryProductService()
+        public static void Initialize(WebStoreContext context)
         {
-            _categories = new List<Category>()
+            context.Database.EnsureCreated();
+
+            if (context.Products.Any())
+            {
+                return;   // DB had already been seeded
+            }
+
+            var categories = new List<Category>()
             {
                 new Category()
                 {
                     Id = 1,
-                    Name = "Sportswear",
+                    Name = "Sportswear 2",
                     Order = 0,
                     ParentId = null
                 },
@@ -229,59 +231,78 @@ namespace Victor_WebStore.Infrastructure.Services
                     ParentId = null
                 }
             };
-            _brands = new List<Brand>()
+            using (var trans = context.Database.BeginTransaction())
+            {
+                foreach (var section in categories)
+                {
+                    context.Categories.Add(section);
+                }
+
+                context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [dbo].[Categories] ON");
+                context.SaveChanges();
+                context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [dbo].[Categories] OFF");
+                trans.Commit();
+            }
+
+            var brands = new List<Brand>()
             {
                 new Brand()
                 {
                     Id = 1,
                     Name = "Acne",
-                    Count = 50,
                     Order = 0
                 },
                 new Brand()
                 {
                     Id = 2,
                     Name = "Grüne Erde",
-                    Count = 56,
                     Order = 1
                 },
                 new Brand()
                 {
                     Id = 3,
                     Name = "Albiro",
-                    Count = 27,
                     Order = 2
                 },
                 new Brand()
                 {
                     Id = 4,
                     Name = "Ronhill",
-                    Count = 32,
                     Order = 3
                 },
                 new Brand()
                 {
                     Id = 5,
                     Name = "Oddmolly",
-                    Count = 5,
                     Order = 4
                 },
                 new Brand()
                 {
                     Id = 6,
                     Name = "Boudestijn",
-                    Count = 9,
                     Order = 5
                 },
                 new Brand()
                 {
                     Id = 7,
                     Name = "Rösch creative culture",
-                    Count = 4,
                     Order = 6
                 },
             };
-            _products = new List<Product>()
+            using (var trans = context.Database.BeginTransaction())
+            {
+                foreach (var brand in brands)
+                {
+                    context.Brands.Add(brand);
+                }
+
+                context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [dbo].[Brands] ON");
+                context.SaveChanges();
+                context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [dbo].[Brands] OFF");
+                trans.Commit();
+            }
+
+            var products = new List<Product>()
             {
                 new Product()
                 {
@@ -404,31 +425,17 @@ namespace Victor_WebStore.Infrastructure.Services
                     BrandId = 3
                 },
             };
-        }
-
-        public IEnumerable<Brand> GetBrands()
-        {
-            return _brands;
-        }
-
-        public IEnumerable<Category> GetCategories()
-        {
-            return _categories;
-        }
-        public IEnumerable<Product> GetProducts(ProductFilter filter)
-        {
-            var products = _products;
-
-            if (filter.CategoryId.HasValue)
-                products = products
-                    .Where(p => p.CategoryId.Equals(filter.CategoryId))
-                    .ToList();
-            if (filter.BrandId.HasValue)
-                products = products
-                    .Where(p => p.BrandId.HasValue && p.BrandId.Value == filter.BrandId.Value)
-                    .ToList();
-
-            return products;
+            using (var trans = context.Database.BeginTransaction())
+            {
+                foreach (var product in products)
+                {
+                    context.Products.Add(product);
+                }
+                context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [dbo].[Products] ON");
+                context.SaveChanges();
+                context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [dbo].[Products] OFF");
+                trans.Commit();
+            }
         }
     }
 }
