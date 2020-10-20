@@ -5,6 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Views\Products\**" />
+    <Content Remove="Views\Products\**" />
+    <EmbeddedResource Remove="Views\Products\**" />
+    <None Remove="Views\Products\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="Controllers\ProductsController.cs" />
     <Compile Remove="Infrastructure\Interfaces\IProductsService.cs" />
     <Compile Remove="Infrastructure\Services\InMemoryProductsService.cs" />

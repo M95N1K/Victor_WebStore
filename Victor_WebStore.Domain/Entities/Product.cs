@@ -5,7 +5,7 @@ using Victor_WebStore.Domain.Entities.Base.Interfaces;
 
 namespace Victor_WebStore.Domain.Entities.Base
 {
-    public class Product : NamedEntity, IOrderEtinty
+    public class Product : NamedEntity, IOrderEntity
     {
         public int Order { get; set; }
         public int CategoryId { get; set; }

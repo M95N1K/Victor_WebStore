@@ -6,7 +6,7 @@ using Victor_WebStore.Domain.Entities.Base.Interfaces;
 
 namespace Victor_WebStore.ViewModels
 {
-    public class BrandViewModel : INameEntity, ICountEntity, IOrderEtinty
+    public class BrandViewModel : INameEntity, ICountEntity, IOrderEntity
     {
         public string Name { get ; set ; }
         public int Id { get ; set ; }

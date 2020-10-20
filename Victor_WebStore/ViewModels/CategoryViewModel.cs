@@ -6,7 +6,7 @@ using Victor_WebStore.Domain.Entities.Base.Interfaces;
 
 namespace Victor_WebStore.ViewModels
 {
-    public class CategoryViewModel : INameEntity, IOrderEtinty
+    public class CategoryViewModel : INameEntity, IOrderEntity
     {
         public CategoryViewModel()
         {

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Victor_WebStore.Domain.Entities.Base.Interfaces
 {
-    public interface IOrderEtinty
+    public interface IOrderEntity
     {
         int Order { get; set; }
     }
