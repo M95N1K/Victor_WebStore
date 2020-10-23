@@ -5,35 +5,8 @@
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="Views\Products\**" />
-    <Content Remove="Views\Products\**" />
-    <EmbeddedResource Remove="Views\Products\**" />
-    <None Remove="Views\Products\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Remove="Controllers\ProductsController.cs" />
-    <Compile Remove="Infrastructure\Interfaces\IProductsService.cs" />
-    <Compile Remove="Infrastructure\Services\InMemoryProductService.cs" />
-    <Compile Remove="Infrastructure\Services\InMemoryProductsService.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Remove="Views\Shared\_topFooter.cshtml" />
-    <Content Remove="wwwroot\404.html" />
-    <Content Remove="wwwroot\blog-single.html" />
-    <Content Remove="wwwroot\blog.html" />
-    <Content Remove="wwwroot\cart.html" />
-    <Content Remove="wwwroot\checkout.html" />
-    <Content Remove="wwwroot\contact-us.html" />
-    <Content Remove="wwwroot\index.html" />
-    <Content Remove="wwwroot\login.html" />
-    <Content Remove="wwwroot\product-details.html" />
-    <Content Remove="wwwroot\shop.html" />
-  </ItemGroup>
-
-  <ItemGroup>
+   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.9">
       <PrivateAssets>all</PrivateAssets>
