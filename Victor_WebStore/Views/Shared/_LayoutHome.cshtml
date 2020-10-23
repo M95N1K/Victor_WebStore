@@ -92,10 +92,13 @@
                                 <li><a href="~/#"><i class="fa fa-star"></i> Wishlist</a></li>
                                 <li><a asp-controller="home" asp-action="checkout"><i class="fa fa-crosshairs"></i> Checkout</a></li>
                                 <li><a asp-controller="home" asp-action="cart"><i class="fa fa-shopping-cart"></i> Cart</a></li>
-                                <li><a asp-controller="home" asp-action="login"><i class="fa fa-lock"></i> Login</a></li>
+                                <li><vc:login-logout-vc></vc:login-logout-vc></li>
                             </ul>
                         </div>
                     </div>
+                    @*<div class="col-sm-3">
+                        <vc:login-logout-vc></vc:login-logout-vc>
+                    </div>*@
                 </div>
             </div>
         </div><!--/header-middle-->
@@ -122,7 +125,7 @@
                                         <li><a asp-controller="catalog" asp-action="ProductDetails">Product Details</a></li>
                                         <li><a asp-controller="home" asp-action="checkout">Checkout</a></li>
                                         <li><a asp-controller="home" asp-action="cart">Cart</a></li>
-                                        <li><a asp-controller="home" asp-action="login">Login</a></li>
+                                        <li>@*<a asp-controller="home" asp-action="login">Login</a>*@</li>
                                     </ul>
                                 </li>
                                 <li class="dropdown">
