@@ -5,6 +5,7 @@
       "wwwroot/css/animate.css",
       "wwwroot/css/prettyPhoto.css",
       "wwwroot/css/price-range.css",
+      //"wwwroot/css/main.css",
       "wwwroot/css/responsive.css"
     ]
   },
@@ -12,9 +13,9 @@
     "outputFileName": "wwwroot/js/site.min.js",
     "inputFiles": [
       "wwwroot/js/main.js",
+      //"wwwroot/js/jquery.js",
       "wwwroot/js/gmaps.js",
       "wwwroot/js/html5shiv.js",
-      "wwwroot/js/jquery.js",
       "wwwroot/js/jquery.prettyPhoto.js",
       "wwwroot/js/price-range.js"
     ],
