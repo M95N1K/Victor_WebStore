@@ -23,9 +23,10 @@ namespace Victor_WebStore.Controllers
             return View();
         }
 
-        public IActionResult ProductDetails()
+        public IActionResult ProductDetails(int id)
         {
-            return View();
+            var product = _productService.GetProducts(null).FirstOrDefault(x => x.Id == id);
+            return View(product.ToViewModel());
         }
 
         public IActionResult Shop(int? categoryId, int? brandId)
@@ -38,14 +39,7 @@ namespace Victor_WebStore.Controllers
             {
                 BrandId = brandId,
                 CategoryId = categoryId,
-                Products = products.Select(p => new ProductViewModel()
-                {
-                    Id = p.Id,
-                    ImageUrl = p.ImageUrl,
-                    Name = p.Name,
-                    Order = p.Order,
-                    Price = p.Price
-                }).OrderBy(p => p.Order).ToList()
+                Products = products.Select(p => p.ToViewModel()).OrderBy(p => p.Order).ToList()
             };
 
             return View(model);

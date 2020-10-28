@@ -51,10 +51,10 @@ namespace Victor_WebStore.Controllers
             return View();
         }
 
-        public IActionResult Cart()
-        {
-            return View();
-        }
+        //public IActionResult Cart()
+        //{
+        //    return View();
+        //}
 
         public IActionResult Checkout()
         {
@@ -66,10 +66,10 @@ namespace Victor_WebStore.Controllers
             return View();
         }
 
-        public IActionResult Login()
-        {
-            return View();
-        }
+        //public IActionResult Login()
+        //{
+        //    return View();
+        //}
 
         
 

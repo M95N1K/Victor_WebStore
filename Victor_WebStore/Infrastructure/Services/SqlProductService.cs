@@ -30,11 +30,13 @@ namespace Victor_WebStore.Infrastructure.Services
         public IEnumerable<Product> GetProducts(ProductFilter filter)
         {
             var listProduct = _context.Products.AsQueryable();
-            if (filter.BrandId.HasValue)
-                listProduct = listProduct.Where(c => c.BrandId.HasValue && c.BrandId.Value.Equals(filter.BrandId.Value));
-            if (filter.CategoryId.HasValue)
-                listProduct = listProduct.Where(c => c.CategoryId.Equals(filter.CategoryId.Value));
-
+            if (filter != null)
+            {
+                if (filter.BrandId.HasValue)
+                    listProduct = listProduct.Where(c => c.BrandId.HasValue && c.BrandId.Value.Equals(filter.BrandId.Value));
+                if (filter.CategoryId.HasValue)
+                    listProduct = listProduct.Where(c => c.CategoryId.Equals(filter.CategoryId.Value));
+            }
             return listProduct.ToList();
         }
     }
