@@ -14,8 +14,8 @@
     "inputFiles": [
       "wwwroot/js/main.js",
       //"wwwroot/js/jquery.js",
-      "wwwroot/js/gmaps.js",
-      "wwwroot/js/html5shiv.js",
+      //"wwwroot/js/gmaps.js",
+      //"wwwroot/js/html5shiv.js",
       "wwwroot/js/jquery.prettyPhoto.js",
       "wwwroot/js/price-range.js"
     ],

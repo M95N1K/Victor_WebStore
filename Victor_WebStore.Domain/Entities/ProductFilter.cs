@@ -8,5 +8,6 @@ namespace Victor_WebStore.Domain.Entities
     {
         public int? CategoryId { get; set; }
         public int? BrandId { get; set; }
+        public List<int> Ids { get; set; }
     }
 }

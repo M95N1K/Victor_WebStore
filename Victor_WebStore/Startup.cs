@@ -35,6 +35,8 @@ namespace Victor_WebStore
             services.AddMvc();
             services.AddSingleton<IEmployeesService, InMemoryEmployeesService>();
             services.AddScoped<IProductService, SqlProductService>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped<ICartService, CoockieCartService>();
 
             services.AddDbContext<WebStoreContext>(options => options
                 .UseSqlServer(_configuration.GetConnectionString("DefaultConnection")));
@@ -79,10 +81,10 @@ namespace Victor_WebStore
                 app.UseDeveloperExceptionPage();
             }
             app.UseStaticFiles();
-
-            app.UseAuthentication();
-            
             app.UseRouting();
+            app.UseAuthentication();
+
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

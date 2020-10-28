@@ -1,8 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using Victor_WebStore.Domain.Entities;
 
 namespace Victor_WebStore.DAL
@@ -436,6 +439,43 @@ namespace Victor_WebStore.DAL
                 context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT [dbo].[Products] OFF");
                 trans.Commit();
             }
+        }
+
+        public static void InitializeUSer(IServiceProvider services)
+        {
+            var roleManager = services.GetService<RoleManager<IdentityRole>>();
+
+            AddRole(roleManager, "Users");
+            AddRole(roleManager, "Admins");
+
+            EnsureRoleToUser(services, "root", "Admins", "root@123");
+        }
+
+        private static void EnsureRoleToUser(IServiceProvider services, string userName, string roleName, string pass)
+        {
+            var userManager = services.GetService<UserManager<User>>();
+            var userStore = services.GetService<IUserStore<User>>();
+
+            if (userStore.FindByNameAsync(userName,CancellationToken.None).Result != null)
+            {
+                return;
+            }
+
+            var admin = new User
+            {
+                UserName = userName,
+                Email = $"{userName}@domain.com"
+            };
+
+            if (userManager.CreateAsync(admin, pass).Result.Succeeded)
+                userManager.AddToRoleAsync(admin, roleName).Wait();
+        }
+
+        private static void AddRole(RoleManager<IdentityRole> roleManager, string roleName)
+        {
+            if (!roleManager.RoleExistsAsync(roleName).Result)
+                roleManager.CreateAsync(new IdentityRole(roleName)).Wait();
+
         }
     }
 }

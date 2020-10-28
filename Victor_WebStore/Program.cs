@@ -24,6 +24,7 @@ namespace Victor_WebStore
                 {
                     WebStoreContext context = services.GetRequiredService<WebStoreContext>();
                     DbInitializer.Initialize(context);
+                    DbInitializer.InitializeUSer(services);
                 }
                 catch (Exception ex)
                 {

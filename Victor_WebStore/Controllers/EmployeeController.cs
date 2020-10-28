@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Victor_WebStore.Infrastructure.Interfaces;
 using Victor_WebStore.ViewModels;
@@ -9,6 +10,7 @@ using Victor_WebStore.ViewModels;
 namespace Victor_WebStore.Controllers
 {
     [Route("user")]
+    [Authorize]
     public class EmployeeController : Controller
     {
         private readonly IEmployeesService _employeesService;
@@ -19,6 +21,7 @@ namespace Victor_WebStore.Controllers
         }
 
         [Route("all")]
+        [AllowAnonymous]
         public IActionResult Employee()
         {
             return View(_employeesService.GetAll());
@@ -37,6 +40,7 @@ namespace Victor_WebStore.Controllers
 
         [HttpGet]
         [Route("edit/{id?}")]
+        [Authorize(Roles = "Admins")]
         public IActionResult Edit(int? id)
         {
             if (!id.HasValue)
@@ -51,13 +55,14 @@ namespace Victor_WebStore.Controllers
 
         [HttpPost]
         [Route("edit/{id?}")]
+        [Authorize(Roles = "Admins")]
         public IActionResult Edit(EmployeeViewModel persona)
         {
             if(!ModelState.IsValid)
             {
                 return View(persona);
             }
-
+ 
             if(persona.Id > 0)
             {
                 var item = _employeesService.GetById(persona.Id);
@@ -79,6 +84,7 @@ namespace Victor_WebStore.Controllers
 
         [HttpGet]
         [Route("delete/{id}")]
+        [Authorize(Roles = "Admins")]
         public IActionResult Delete(int Id)
         {
             _employeesService.Delete(Id);

@@ -4,8 +4,6 @@
     ViewData["Title"] = "Вход";
 }
 
-<p>Если у Вас отсутствует учетная запись, то пройдите процедуру <a asp-action="register" asp-controller="account">регистрации</a></p>
-
 <section id="form">
     <!--form-->
     <div class="container">
@@ -18,7 +16,7 @@
                         <div asp-validation-summary="ModelOnly" class="text-danger">
 
                         </div>
-                        
+
                         <input asp-for="UserName" placeholder="@nameof(Model.UserName)" />
                         <span asp-validation-for="UserName" class="text-danger"></span>
 
@@ -33,7 +31,10 @@
                         <button type="submit" class="btn btn-default">Вход</button>
                     </form>
                 </div><!--/login form-->
+                <br />
+                <p>Если у Вас отсутствует учетная запись, то пройдите процедуру <a asp-action="register" asp-controller="account">регистрации</a></p>
             </div>
         </div>
     </div>
 </section><!--/form-->
+
