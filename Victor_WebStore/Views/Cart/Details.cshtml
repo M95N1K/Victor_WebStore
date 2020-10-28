@@ -50,8 +50,25 @@
                             </td>
                         </tr>
                     }
+                    <tr>
+                        <td>
+
+                        </td>
+                        <td class="cart_description">
+                            <h4>Всего товара</h4>
+                        </td>
+                        <td class="cart_description">
+                            <h4>@Model.ItemCount шт.</h4>
+                        </td>
+                        <td class="cart_description">
+                            <h4>На сумму</h4>
+                        </td>
+                        <td class="cart_total">
+                            <p class="cart_total_price">@Model.TotalPrice.ToString("C")</p>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
-        </div>
+        </div>        
     </div>
 </section> <!--/#cart_items-->
