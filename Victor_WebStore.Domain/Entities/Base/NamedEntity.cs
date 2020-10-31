@@ -12,7 +12,7 @@ namespace Victor_WebStore.Domain.Entities.Base
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-
+        [Display(Name ="Имя")]
         public string Name { get; set; }
     }
 }

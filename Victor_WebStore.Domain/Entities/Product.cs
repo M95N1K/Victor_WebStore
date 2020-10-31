@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 using Victor_WebStore.Domain.Entities.Base;
@@ -20,6 +21,7 @@ namespace Victor_WebStore.Domain.Entities
         public virtual Category Category { get; set; }
 
         [ForeignKey("BrandId")]
+        [Display(Name = "Брэнд")]
         public virtual Brand Brand { get; set; }
 
     }
