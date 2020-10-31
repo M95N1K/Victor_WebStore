@@ -22,4 +22,9 @@
     <ProjectReference Include="..\Victor_WebStore.Domain\Victor_WebStore.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Areas\Admin\Models\" />
+  </ItemGroup>
+
 </Project>

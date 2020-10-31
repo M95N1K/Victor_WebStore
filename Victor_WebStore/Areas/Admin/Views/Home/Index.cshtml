@@ -1,0 +1,62 @@
+﻿@model IEnumerable<Victor_WebStore.Domain.Entities.Product>
+@{
+    ViewData["Title"] = "Список товаров";
+}
+
+<p>
+    <a asp-action="Create">Create new</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Order)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImageUrl)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Category)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Brand)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <th>
+                @item.Order
+            </th>
+            <th>
+                @item.ImageUrl
+            </th>
+            <th>
+                @item.Price
+            </th>
+            <th>
+                @item.Category
+            </th>
+            <th>
+                @item.Brand
+            </th>
+            <th>
+                @item.Name
+            </th>
+            <th>
+                <a href="#">Edit</a>
+                |<a href="#">Details</a>
+                |<a href="#">Delete</a>
+            </th>
+        </tr>
+         }
+      </tbody>
+    </table>

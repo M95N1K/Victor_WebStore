@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -27,9 +28,21 @@ namespace Victor_WebStore.Infrastructure.Services
             return _context.Categories.ToList();
         }
 
+        public Product GetProductById(int id)
+        {
+            var result = _context.Products
+                .Include(p => p.Brand)
+                .Include(c => c.Category)
+                .FirstOrDefault(x => x.Id == id);
+            return result;
+        }
+
         public IEnumerable<Product> GetProducts(ProductFilter filter)
         {
-            var listProduct = _context.Products.AsQueryable();
+            var listProduct = _context.Products
+                .Include(b => b.Brand)
+                .Include(c => c.Category)
+                .AsQueryable();
             if (filter != null)
             {
                 if (filter.BrandId.HasValue)

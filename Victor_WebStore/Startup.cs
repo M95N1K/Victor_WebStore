@@ -82,21 +82,20 @@ namespace Victor_WebStore
             }
             app.UseStaticFiles();
             app.UseRouting();
-            app.UseAuthentication();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
+                //endpoints для областей
                 endpoints.MapControllerRoute(
-                    "default", 
-                    "{controller=Home}/{action=Index}/{id?}");
+                    name: "areas",
+                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
-                endpoints.MapGet("/", async context =>
-                {
-                    //await context.Response.WriteAsync($"Hello World! - {hellp}");
-                    context.Response.Redirect("./home/index");
-                });
+                endpoints.MapControllerRoute(
+                    name: "default", 
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

@@ -25,7 +25,7 @@ namespace Victor_WebStore.Controllers
 
         public IActionResult ProductDetails(int id)
         {
-            var product = _productService.GetProducts(null).FirstOrDefault(x => x.Id == id);
+            var product = _productService.GetProductById(id);
             return View(product.ToViewModel());
         }
 

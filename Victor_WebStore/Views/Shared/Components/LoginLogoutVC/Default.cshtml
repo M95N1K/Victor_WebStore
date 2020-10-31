@@ -1,12 +1,22 @@
 ﻿@if (User.Identity.IsAuthenticated)
 {
-<span><a href="#"> Здравствуйте, @User.Identity.Name</a> </span>
+<span>
+    Здравствуйте,
+    @if (User.IsInRole("Admins"))
+    {
+        <a asp-area="Admin" asp-controller="home" asp-action="index">  @User.Identity.Name</a>
+    }
+    else
+    {
+        <a href="#">  @User.Identity.Name</a>
+    }
+</span>
 <a asp-action="Logout" asp-controller="account" class="btn btn-default">Выход</a>
 }
 else
 {
-    <div>
-        <a asp-action="login" asp-controller="account" class="btn btn-default">Вход</a> &nbsp;
-        <a asp-action="register" asp-controller="account" class="btn btn-default" >Регистрация</a>
-    </div>
+<div>
+    <a asp-action="login" asp-controller="account" class="btn btn-default">Вход</a> &nbsp;
+    <a asp-action="register" asp-controller="account" class="btn btn-default">Регистрация</a>
+</div>
 }
