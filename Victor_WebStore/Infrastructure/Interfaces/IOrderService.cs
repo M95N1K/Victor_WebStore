@@ -13,6 +13,8 @@ namespace Victor_WebStore.Infrastructure.Interfaces
 
         Order GetOrderById(int id);
 
+        IEnumerable<OrderItem> GetOrderItemsByOrder(int id);
+
         Order CreateOrder(OrderViewModel orderModel, CartViewModel transformCart, string userName);
     }
 }

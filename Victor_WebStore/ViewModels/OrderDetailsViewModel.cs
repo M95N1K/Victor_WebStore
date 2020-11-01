@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Victor_WebStore.Domain.Entities;
 
 namespace Victor_WebStore.ViewModels
 {
@@ -10,4 +11,6 @@ namespace Victor_WebStore.ViewModels
         public CartViewModel CartViewModel { get; set; }
         public OrderViewModel OrderViewModel { get; set; }
     }
+
+    
 }

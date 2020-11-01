@@ -8,7 +8,7 @@
     }
     else
     {
-        <a href="#">  @User.Identity.Name</a>
+        <a asp-controller="Profile" asp-action="Index">  @User.Identity.Name</a>
     }
 </span>
 <a asp-action="Logout" asp-controller="account" class="btn btn-default">Выход</a>

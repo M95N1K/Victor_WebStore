@@ -13,19 +13,19 @@ namespace Victor_WebStore.Infrastructure.Services
 {
     public class SqlOrderService : IOrderService
     {
-        private readonly WebStoreContext _webStoreContext;
+        private readonly WebStoreContext _context;
         private readonly UserManager<User> _userManager;
 
         public SqlOrderService(WebStoreContext webStoreContext, UserManager<User> userManager)
         {
-            _webStoreContext = webStoreContext;
+            _context = webStoreContext;
             _userManager = userManager;
         }
         public Order CreateOrder(OrderViewModel orderModel, CartViewModel transformCart, string userName)
         {
             var user = _userManager.FindByNameAsync(userName).Result;
 
-            using (var transaction = _webStoreContext.Database.BeginTransaction())
+            using (var transaction = _context.Database.BeginTransaction())
             {
                 var order = new Order()
                 {
@@ -35,11 +35,11 @@ namespace Victor_WebStore.Infrastructure.Services
                     Phone = orderModel.Phone,
                     User = user
                 };
-                _webStoreContext.Orders.Add(order);
+                _context.Orders.Add(order);
                 foreach (var item in transformCart.Items)
                 {
                     var productVm = item.Key;
-                    var product = _webStoreContext.Products.FirstOrDefault(p => p.Id.Equals(productVm.Id));
+                    var product = _context.Products.FirstOrDefault(p => p.Id.Equals(productVm.Id));
                     if (product == null)
                         throw new InvalidOperationException("Товар не найден в базе");
                     var orderItem = new OrderItem()
@@ -49,10 +49,10 @@ namespace Victor_WebStore.Infrastructure.Services
                         Order = order,
                         Product = product
                     };
-                    _webStoreContext.OrderItems.Add(orderItem);
+                    _context.OrderItems.Add(orderItem);
                 }
 
-                _webStoreContext.SaveChanges();
+                _context.SaveChanges();
                 transaction.Commit();
                 return order;
             }
@@ -60,15 +60,24 @@ namespace Victor_WebStore.Infrastructure.Services
 
         public Order GetOrderById(int id)
         {
-            return _webStoreContext.Orders
+            return _context.Orders
                 .Include(x => x.OrderItems)
                 .Include(x => x.User)
                 .FirstOrDefault(x => x.Id == id);
         }
 
+        public IEnumerable<OrderItem> GetOrderItemsByOrder(int id)
+        {
+            return _context.OrderItems
+                .Include(x => x.Product)
+                //.Include(x => x.Product.Brand)
+                .Include(x => x.Order)
+                .Where(x => x.Order.Id == id);
+        }
+
         public IEnumerable<Order> GetUserOrders(string userName)
         {
-            return _webStoreContext.Orders
+            return _context.Orders
                 .Include(x => x.OrderItems)
                 .Include(x => x.User)
                 .Where(x => x.User.UserName == userName);
