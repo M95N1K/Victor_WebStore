@@ -84,6 +84,8 @@ namespace Victor_WebStore.Controllers
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
+
+        
     }
 
 }

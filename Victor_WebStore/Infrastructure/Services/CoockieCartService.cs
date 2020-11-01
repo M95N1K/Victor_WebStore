@@ -116,7 +116,9 @@ namespace Victor_WebStore.Infrastructure.Services
 
         public void RemoveAll()
         {
-            Cart.Items.Clear();
+            var cart = Cart;
+            cart.Items.Clear();
+            Cart = cart;
         }
 
         public void RemoveFromCart(int id)

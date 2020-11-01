@@ -1,4 +1,4 @@
-﻿@model Victor_WebStore.ViewModels.CartViewModel
+﻿@model Victor_WebStore.ViewModels.OrderDetailsViewModel
 @{
     ViewData["Title"] = "Корзина";
 }
@@ -19,7 +19,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in Model.Items)
+                    @foreach (var item in Model.CartViewModel.Items)
                     {
                         <tr>
                             <td class="cart_product">
@@ -60,13 +60,13 @@
                             <h4>Всего товара</h4>
                         </td>
                         <td class="cart_description">
-                            <h4>@Model.ItemCount шт.</h4>
+                            <h4>@Model.CartViewModel.ItemCount шт.</h4>
                         </td>
                         <td class="cart_description">
                             <h4>На сумму</h4>
                         </td>
                         <td class="cart_total">
-                            <p class="cart_total_price">@Model.TotalPrice.ToString("C")</p>
+                            <p class="cart_total_price">@Model.CartViewModel.TotalPrice.ToString("C")</p>
                         </td>
                     </tr>
                 </tbody>
@@ -74,3 +74,12 @@
         </div>        
     </div>
 </section> <!--/#cart_items-->
+
+<section id="do_action">
+    <div class="heading">
+        <h3>Оформить заказ</h3>
+    </div>
+    <div class="row login-form">
+        @Html.Partial("_OrderPartial",Model.OrderViewModel,new ViewDataDictionary(ViewData) { {"sumCart",Model.CartViewModel.TotalPrice } })
+    </div>
+</section>
