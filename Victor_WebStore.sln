@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Victor_WebStore", "Victor_W
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Victor_WebStore.Domain", "Victor_WebStore.Domain\Victor_WebStore.Domain.csproj", "{36A6789A-F899-4816-8C97-EA11043D7D7E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Victor_WebStore.DAL", "Victor_WebStore.DAL\Victor_WebStore.DAL.csproj", "{9046E79C-F371-424F-A1B8-91A0B9B16AD4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Victor_WebStore.DAL", "Victor_WebStore.DAL\Victor_WebStore.DAL.csproj", "{9046E79C-F371-424F-A1B8-91A0B9B16AD4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

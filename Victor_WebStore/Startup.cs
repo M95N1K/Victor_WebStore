@@ -1,4 +1,4 @@
-using System;
+п»їusing System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -46,7 +46,7 @@ namespace Victor_WebStore
 
             services.Configure<IdentityOptions>(options =>
             {
-                //Настройки пароля
+                //РќР°СЃС‚СЂРѕР№РєРё РїР°СЂРѕР»СЏ
                 options.Password.RequireDigit = true;
                 options.Password.RequiredLength = 5;
                 options.Password.RequireLowercase = false;
@@ -89,7 +89,7 @@ namespace Victor_WebStore
 
             app.UseEndpoints(endpoints =>
             {
-                //endpoints для областей
+                //endpoints РґР»СЏ РѕР±Р»Р°СЃС‚РµР№
                 endpoints.MapControllerRoute(
                     name: "areas",
                     pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
