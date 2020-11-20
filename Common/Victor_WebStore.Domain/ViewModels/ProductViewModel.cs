@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Victor_WebStore.Domain.Entities;
+﻿using Victor_WebStore.Domain.Entities;
 using Victor_WebStore.Domain.Entities.Base.Interfaces;
 
 namespace Victor_WebStore.Domain.ViewModels

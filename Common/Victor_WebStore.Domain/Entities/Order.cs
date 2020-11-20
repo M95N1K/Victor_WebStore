@@ -1,13 +1,10 @@
-﻿using Microsoft.VisualBasic;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Collections.ObjectModel;
-using System.Text;
 using Victor_WebStore.Domain.Entities.Base;
 
 namespace Victor_WebStore.Domain.Entities
 {
-    public class Order: NamedEntity
+    public class Order : NamedEntity
     {
         public string Phone { get; set; }
         public string Address { get; set; }

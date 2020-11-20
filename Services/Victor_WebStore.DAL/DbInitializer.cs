@@ -4,7 +4,6 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using Victor_WebStore.Domain.Entities;
 
@@ -457,7 +456,7 @@ namespace Victor_WebStore.DAL
             var userManager = services.GetService<UserManager<User>>();
             var userStore = services.GetService<IUserStore<User>>();
 
-            if (userStore.FindByNameAsync(userName,CancellationToken.None).Result != null)
+            if (userStore.FindByNameAsync(userName, CancellationToken.None).Result != null)
             {
                 return;
             }
