@@ -1,0 +1,23 @@
+﻿
+@{
+    ViewData["Title"] = "Add";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div class="row">
+    <form asp-action="Add">
+
+        <div class="form-group">
+            <label class="control-label">Значение</label>
+            <input name="value" class="form-control" placeholder="Значение" />
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Добавить" class="btn btn-primary" />
+        </div>
+    </form>
+    <div>
+        <a asp-action="Index" class="btn btn-default">Назад к списку</a>
+    </div>
+</div>
