@@ -9,17 +9,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{20
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{47C3B17B-167A-4C32-86C8-4F5998E4C91C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Victor_WebStore.DAL", "Services\Victor_WebStore.DAL\Victor_WebStore.DAL.csproj", "{2BF10B99-AAAC-43E5-9F10-FA0F50507239}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Victor_WebStore.DAL", "Services\Victor_WebStore.DAL\Victor_WebStore.DAL.csproj", "{2BF10B99-AAAC-43E5-9F10-FA0F50507239}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Victor_WebStore.Interfaces", "Services\Victor_WebStore.Interfaces\Victor_WebStore.Interfaces.csproj", "{2EADD46D-E3EA-4F67-B8E1-C2F1FCD7D024}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Victor_WebStore.Interfaces", "Services\Victor_WebStore.Interfaces\Victor_WebStore.Interfaces.csproj", "{2EADD46D-E3EA-4F67-B8E1-C2F1FCD7D024}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Victor_WebStore.Domain", "Common\Victor_WebStore.Domain\Victor_WebStore.Domain.csproj", "{AAFC7514-343B-4A33-BB20-89FD5594B2FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Victor_WebStore.Domain", "Common\Victor_WebStore.Domain\Victor_WebStore.Domain.csproj", "{AAFC7514-343B-4A33-BB20-89FD5594B2FF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Victor_WebStore", "UI\Victor_WebStore\Victor_WebStore.csproj", "{47943DDD-4220-482D-95C7-B2358D2AA4E5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Victor_WebStore.ServiceHosting", "Services\Victor_WebStore.ServiceHosting\Victor_WebStore.ServiceHosting.csproj", "{BFF3D07C-A47C-492A-B026-2DD77E2B1137}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Victor_WebStore.Services", "Services\Victor_WebStore.Services\Victor_WebStore.Services.csproj", "{60C6ADC4-6A1B-4856-9CBC-33BC6E9F9D25}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Victor_WebStore.ServicesHost", "Victor_WebStore.ServicesHost\Victor_WebStore.ServicesHost.csproj", "{985839BE-C124-4BF9-8961-DAF4CA246189}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{60C6ADC4-6A1B-4856-9CBC-33BC6E9F9D25}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{60C6ADC4-6A1B-4856-9CBC-33BC6E9F9D25}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{60C6ADC4-6A1B-4856-9CBC-33BC6E9F9D25}.Release|Any CPU.Build.0 = Release|Any CPU
+		{985839BE-C124-4BF9-8961-DAF4CA246189}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{985839BE-C124-4BF9-8961-DAF4CA246189}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{985839BE-C124-4BF9-8961-DAF4CA246189}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{985839BE-C124-4BF9-8961-DAF4CA246189}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -62,6 +68,7 @@ Global
 		{47943DDD-4220-482D-95C7-B2358D2AA4E5} = {47C3B17B-167A-4C32-86C8-4F5998E4C91C}
 		{BFF3D07C-A47C-492A-B026-2DD77E2B1137} = {20225E1C-B021-4F55-9622-33F2C29AB07C}
 		{60C6ADC4-6A1B-4856-9CBC-33BC6E9F9D25} = {20225E1C-B021-4F55-9622-33F2C29AB07C}
+		{985839BE-C124-4BF9-8961-DAF4CA246189} = {20225E1C-B021-4F55-9622-33F2C29AB07C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E8587C52-06AC-44D0-8603-9E8E2B83528F}

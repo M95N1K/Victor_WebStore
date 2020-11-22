@@ -42,11 +42,15 @@ namespace Victor_WebStore
             services.Configure<IdentityOptions>(options =>
             {
                 //Настройки пароля
-                options.Password.RequireDigit = true;
-                options.Password.RequiredLength = 5;
+
+#if DEBUG
+                options.Password.RequireDigit = false;
+                options.Password.RequiredLength = 3;
                 options.Password.RequireLowercase = false;
                 options.Password.RequireUppercase = false;
                 options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequiredUniqueChars = 3;
+#endif
 
                 //
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
@@ -58,6 +62,7 @@ namespace Victor_WebStore
 
             services.ConfigureApplicationCookie(options =>
             {
+                options.Cookie.Name = "VWebStore";
                 options.Cookie.HttpOnly = true;
                 //options.Cookie.Expiration = TimeSpan.FromDays(150);
                 options.LoginPath = "/Account/Login";
