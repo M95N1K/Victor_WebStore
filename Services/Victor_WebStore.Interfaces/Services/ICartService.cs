@@ -1,6 +1,6 @@
 ﻿using Victor_WebStore.Domain.ViewModels;
 
-namespace Victor_WebStore.Interfaces
+namespace Victor_WebStore.Interfaces.Services
 {
     public interface ICartService
     {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Victor_WebStore.Domain.ViewModels;
-using Victor_WebStore.Interfaces;
+using Victor_WebStore.Interfaces.Services;
 
 namespace Victor_WebStore.Controllers
 {

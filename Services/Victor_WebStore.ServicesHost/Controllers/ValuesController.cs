@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -21,7 +19,7 @@ namespace Victor_WebStore.ServicesHost.Controllers
 
         // GET api/<ValuesController>/5
         [HttpGet("{id}")]
-        public ActionResult<string> Get(int id) 
+        public ActionResult<string> Get(int id)
         {
             if (id < 0)
                 return BadRequest();
@@ -33,14 +31,14 @@ namespace Victor_WebStore.ServicesHost.Controllers
 
         // POST api/<ValuesController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post(string value) //[FromBody] - привязывает входящие данные jSon к модели класса
         {
             _Values.Add(value);
         }
 
         // PUT api/<ValuesController>/5
         [HttpPut("{id}")]
-        public ActionResult Put(int id, [FromBody] string value)
+        public ActionResult Put(int id, string value)
         {
             if (id < 0)
                 return BadRequest();

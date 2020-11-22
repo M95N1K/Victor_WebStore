@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Victor_WebStore.DAL;
 using Victor_WebStore.Domain.Entities;
-using Victor_WebStore.Interfaces;
+using Victor_WebStore.Interfaces.Services;
 
 namespace Victor_WebStore.Services
 {

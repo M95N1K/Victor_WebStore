@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Victor_WebStore.Domain.Entities;
 
-namespace Victor_WebStore.Interfaces
+namespace Victor_WebStore.Interfaces.Services
 {
     public interface IProductService
     {

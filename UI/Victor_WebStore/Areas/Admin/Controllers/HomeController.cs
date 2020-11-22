@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
-using Victor_WebStore.Interfaces;
+using Victor_WebStore.Interfaces.Services;
 
 namespace Victor_WebStore.Areas.Admin.Controllers
 {

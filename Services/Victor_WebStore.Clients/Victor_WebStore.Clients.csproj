@@ -5,11 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Victor_WebStore.DAL\Victor_WebStore.DAL.csproj" />
     <ProjectReference Include="..\Victor_WebStore.Interfaces\Victor_WebStore.Interfaces.csproj" />
   </ItemGroup>
 

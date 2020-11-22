@@ -9,7 +9,7 @@ using Microsoft.Extensions.Hosting;
 using System;
 using Victor_WebStore.DAL;
 using Victor_WebStore.Domain.Entities;
-using Victor_WebStore.Interfaces;
+using Victor_WebStore.Interfaces.Services;
 using Victor_WebStore.Services;
 
 namespace Victor_WebStore
