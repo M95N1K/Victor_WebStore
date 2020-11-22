@@ -10,7 +10,10 @@ using System;
 using Victor_WebStore.DAL;
 using Victor_WebStore.Domain.Entities;
 using Victor_WebStore.Interfaces.Services;
+using Victor_WebStore.Interfaces.TestApi;
 using Victor_WebStore.Services;
+using Victor_WebStore.Clients;
+using Victor_WebStore.Clients.Values;
 
 namespace Victor_WebStore
 {
@@ -33,6 +36,7 @@ namespace Victor_WebStore
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<ICartService, CoockieCartService>();
             services.AddScoped<IOrderService, SqlOrderService>();
+            services.AddTransient<IValueService, ValuesClient>();
 
             services.AddDbContext<WebStoreContext>(options => options
                 .UseSqlServer(_configuration.GetConnectionString("DefaultConnection")));

@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace Victor_WebStore.Clients.Values
 {
-    class ValuesClient : BaseClient, IValueService
+    public class ValuesClient : BaseClient, IValueService
     {
 
         public ValuesClient(IConfiguration Configuration) : base(Configuration, "api/values") { }
