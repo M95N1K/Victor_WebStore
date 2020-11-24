@@ -1,0 +1,35 @@
+﻿@model IEnumerable<string>
+@{
+    ViewData["Title"] = "Тест WebApi";
+}
+
+
+
+<div class="container">
+    <h2>@ViewData["Title"]</h2>
+    <hr />
+    <p><a asp-action="Add" class="btn btn-success">Добавить</a></p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{ int i = 1;}
+            @foreach (var value in Model)
+            {
+            <tr>
+                <td>@(i++)</td>
+                <td>@value</td>
+
+                <td><a asp-action="Edit" asp-route-id="@(i-2)"><i class="fa fa-edit"></i></a></td>
+                <td>
+                    <a asp-action="Delete" asp-route-id="@(i-2)"><i class="fa fa-trash-o"></i></a>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
