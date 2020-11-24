@@ -6,7 +6,7 @@ using Victor_WebStore.Interfaces.Services;
 
 namespace Victor_WebStore.ServicesHost.Controllers
 {
-    [Route(WebApiAdress.Employees)]
+    [Route(WebApiAddress.Employees)]
     [ApiController]
     public class EmloyeesApiController : ControllerBase, IEmployeesService
     {

@@ -12,7 +12,7 @@ namespace Victor_WebStore.Clients.Employees
 {
     public class EmployeesClient: BaseClient, IEmployeesService
     {
-        public EmployeesClient(IConfiguration Configuration) : base(Configuration, WebApiAdress.Employees) { }
+        public EmployeesClient(IConfiguration Configuration) : base(Configuration, WebApiAddress.Employees) { }
 
         public void AddNew(EmployeeViewModel persona)
         {

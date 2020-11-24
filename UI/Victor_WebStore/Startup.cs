@@ -16,6 +16,7 @@ using Victor_WebStore.Clients;
 using Victor_WebStore.Clients.Values;
 using Victor_WebStore.Clients.Employees;
 using Victor_WebStore.Clients.Products;
+using Victor_WebStore.Clients.Order;
 
 namespace Victor_WebStore
 {
@@ -33,7 +34,8 @@ namespace Victor_WebStore
             services.AddScoped<IProductService, ProductsClient>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<ICartService, CoockieCartService>();
-            services.AddScoped<IOrderService, SqlOrderService>();
+            //services.AddScoped<IOrderService, SqlOrderService>();
+            services.AddScoped<IOrderService, OrderClients>();
 
             services.AddTransient<IValueService, ValuesClient>();
 

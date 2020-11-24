@@ -1,7 +1,7 @@
-﻿@model IEnumerable<Victor_WebStore.Domain.Entities.OrderItem>
+﻿@model IEnumerable<Victor_WebStore.Domain.DTO.Order.OrderItemDTO>
 
 @{
-    ViewData["Title"] = "Заказ № " + Model.Select(x => x.Order.Id);
+    ViewData["Title"] = "Заказ № " + Model.FirstOrDefault(x => true).OrderId;
 }
 
 <h2>@ViewData["Title"]</h2>
@@ -22,7 +22,7 @@
             @foreach (var item in Model)
             {
                 <tr>
-                    <td>@item.Order.Id</td>
+                    <td>@item.OrderId</td>
                     <td><a asp-controller="Catalog" asp-action="ProductDetails" asp-route-id="@item.Product.Id"> @item.Product.Name</a> </td>
                     <td>@item.Quantity</td>
                     <td>@item.Product.Price</td>

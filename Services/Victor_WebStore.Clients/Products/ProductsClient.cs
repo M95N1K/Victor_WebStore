@@ -12,7 +12,7 @@ namespace Victor_WebStore.Clients.Products
 {
     public class ProductsClient : BaseClient, IProductService
     {
-        public ProductsClient(IConfiguration Configuration) : base(Configuration, WebApiAdress.Products) { }
+        public ProductsClient(IConfiguration Configuration) : base(Configuration, WebApiAddress.Products) { }
         public IEnumerable<BrandDTO> GetBrands() => Get<IEnumerable<BrandDTO>>($"{_ServiceAddress}/brands");
 
         public IEnumerable<CategoryDTO> GetCategories() => Get<IEnumerable<CategoryDTO>>($"{_ServiceAddress}/category");

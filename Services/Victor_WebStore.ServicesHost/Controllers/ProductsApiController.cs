@@ -11,7 +11,7 @@ using Victor_WebStore.Interfaces.Services;
 
 namespace Victor_WebStore.ServicesHost.Controllers
 {
-    [Route(WebApiAdress.Products)]
+    [Route(WebApiAddress.Products)]
     [ApiController]
     public class ProductsApiController : ControllerBase, IProductService
     {

@@ -4,7 +4,8 @@
     Здравствуйте,
     @if (User.IsInRole("Admins"))
     {
-        <a asp-area="Admin" asp-controller="products" asp-action="index">  @User.Identity.Name</a>
+        @*<a asp-area="Admin" asp-controller="products" asp-action="index">  @User.Identity.Name</a>*@
+        <a asp-controller="Profile" asp-action="Index">  @User.Identity.Name</a>
     }
     else
     {
