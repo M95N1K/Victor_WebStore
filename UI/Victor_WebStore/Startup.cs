@@ -17,15 +17,9 @@ using Victor_WebStore.Clients.Values;
 
 namespace Victor_WebStore
 {
-    public class Startup
+    public sealed record Startup(IConfiguration Configuration)
     {
-        private IConfiguration _configuration;
-
-        public Startup(IConfiguration configuration)
-        {
-            _configuration = configuration;
-        }
-
+        
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
@@ -39,7 +33,7 @@ namespace Victor_WebStore
             services.AddTransient<IValueService, ValuesClient>();
 
             services.AddDbContext<WebStoreContext>(options => options
-                .UseSqlServer(_configuration.GetConnectionString("DefaultConnection")));
+                .UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<WebStoreContext>()
                 .AddDefaultTokenProviders();
 
