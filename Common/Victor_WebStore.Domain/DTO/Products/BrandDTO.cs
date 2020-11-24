@@ -10,6 +10,8 @@ namespace Victor_WebStore.Domain.DTO.Products
 
         public string Name { get; set; }
 
+        public int Count { get; set; }
+
         public int Order { get; set; }
     }
 }

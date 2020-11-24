@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Victor_WebStore.Domain.ViewModels;
 using Victor_WebStore.Interfaces.Services;
@@ -24,14 +25,15 @@ namespace Victor_WebStore.ViewComponents
 
         private List<BrandViewModel> GetBrand()
         {
-            var brand = _productService.GetBrands().FromDTO();
+            var products = _productService.GetProducts(null);
+            var brand = _productService.GetBrands();
             var brandList = new List<BrandViewModel>();
             foreach (var item in brand)
             {
                 brandList.Add(new BrandViewModel
                 {
                     Id = item.Id,
-                    Count = item.Count,
+                    Count = products.Count(p => p.Brand.Name == item.Name),
                     Name = item.Name,
                     Order = item.Order
                 });

@@ -12,6 +12,7 @@ namespace Victor_WebStore.Services.Mapping
             Id = Brand.Id,
             Name = Brand.Name,
             Order = Brand.Order,
+            Count = Brand.Count,
         };
 
         public static Brand FromDTO(this BrandDTO Brand) => Brand is null ? null : new Brand
@@ -19,6 +20,7 @@ namespace Victor_WebStore.Services.Mapping
             Id = Brand.Id,
             Name = Brand.Name,
             Order = Brand.Order,
+            Count = Brand.Count,
         };
 
         public static IEnumerable<BrandDTO> ToDTO(this IEnumerable<Brand> Brands) => Brands.Select(ToDTO);
