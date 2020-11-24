@@ -61,6 +61,7 @@ namespace Victor_WebStore.ServicesHost
                 options.User.RequireUniqueEmail = true;
             });
 
+
             services.AddSingleton<IEmployeesService, InMemoryEmployeesService>();
             services.AddScoped<IProductService, SqlProductService>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
