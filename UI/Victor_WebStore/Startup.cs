@@ -14,6 +14,7 @@ using Victor_WebStore.Interfaces.TestApi;
 using Victor_WebStore.Services;
 using Victor_WebStore.Clients;
 using Victor_WebStore.Clients.Values;
+using Victor_WebStore.Clients.Employees;
 
 namespace Victor_WebStore
 {
@@ -25,7 +26,8 @@ namespace Victor_WebStore
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            services.AddSingleton<IEmployeesService, InMemoryEmployeesService>();
+            //services.AddSingleton<IEmployeesService, InMemoryEmployeesService>();
+            services.AddSingleton<IEmployeesService, EmployeesClient>();
             services.AddScoped<IProductService, SqlProductService>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<ICartService, CoockieCartService>();

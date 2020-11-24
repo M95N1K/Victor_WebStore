@@ -1,11 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using Victor_WebStore.Domain;
 using Victor_WebStore.Domain.ViewModels;
 using Victor_WebStore.Interfaces.Services;
 
 namespace Victor_WebStore.ServicesHost.Controllers
 {
-    [Route("api/v1/employees")]
+    [Route(WebApiAdress.Employees)]
     [ApiController]
     public class EmloyeesApiController : ControllerBase, IEmployeesService
     {

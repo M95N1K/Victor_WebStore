@@ -35,7 +35,7 @@ namespace Victor_WebStore.Clients.Base
         #endregion
 
         #region Post
-        public HttpResponseMessage Pos<T>(string url, T item) => PostAsync<T>(url, item).Result;
+        public HttpResponseMessage Post<T>(string url, T item) => PostAsync<T>(url, item).Result;
         public async Task<HttpResponseMessage> PostAsync<T>(string url, T item)
         {
             var response = await _Client.PostAsJsonAsync(url, item);
@@ -53,8 +53,8 @@ namespace Victor_WebStore.Clients.Base
         #endregion
 
         #region Delete
-        public HttpResponseMessage Delete<T>(string url) => DeleteAsunc<T>(url).Result;
-        public async Task<HttpResponseMessage> DeleteAsunc<T>(string url)
+        public HttpResponseMessage Delete(string url) => DeleteAsunc(url).Result;
+        public async Task<HttpResponseMessage> DeleteAsunc(string url)
         {
             var response = await _Client.DeleteAsync(url);
             return response;
