@@ -3,6 +3,7 @@ using System.Linq;
 using Victor_WebStore.Domain.Entities;
 using Victor_WebStore.Domain.ViewModels;
 using Victor_WebStore.Interfaces.Services;
+using Victor_WebStore.Services.Mapping;
 
 namespace Victor_WebStore.Controllers
 {
@@ -23,7 +24,7 @@ namespace Victor_WebStore.Controllers
         public IActionResult ProductDetails(int id)
         {
             var product = _productService.GetProductById(id);
-            return View(product.ToViewModel());
+            return View(product.FromDTO().ToViewModel());
         }
 
         public IActionResult Shop(int? categoryId, int? brandId)
@@ -36,7 +37,7 @@ namespace Victor_WebStore.Controllers
             {
                 BrandId = brandId,
                 CategoryId = categoryId,
-                Products = products.Select(p => p.ToViewModel()).OrderBy(p => p.Order).ToList()
+                Products = products.FromDTO().Select(p => p.ToViewModel()).OrderBy(p => p.Order).ToList()
             };
 
             return View(model);

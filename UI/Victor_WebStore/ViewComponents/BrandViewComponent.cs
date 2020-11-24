@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Victor_WebStore.Domain.ViewModels;
 using Victor_WebStore.Interfaces.Services;
+using Victor_WebStore.Services.Mapping;
 
 namespace Victor_WebStore.ViewComponents
 {
@@ -23,7 +24,7 @@ namespace Victor_WebStore.ViewComponents
 
         private List<BrandViewModel> GetBrand()
         {
-            var brand = _productService.GetBrands();
+            var brand = _productService.GetBrands().FromDTO();
             var brandList = new List<BrandViewModel>();
             foreach (var item in brand)
             {

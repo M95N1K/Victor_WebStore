@@ -7,5 +7,6 @@ namespace Victor_WebStore.Domain
     public static class WebApiAdress
     {
         public const string Employees = "api/employees";
+        public const string Products = "api/products";
     }
 }

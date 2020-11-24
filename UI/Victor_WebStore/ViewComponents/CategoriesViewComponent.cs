@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Victor_WebStore.Domain.ViewModels;
 using Victor_WebStore.Interfaces.Services;
+using Victor_WebStore.Services.Mapping;
 
 namespace Victor_WebStore.ViewComponents
 {
