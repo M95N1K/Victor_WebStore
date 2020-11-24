@@ -24,12 +24,12 @@ namespace Victor_WebStore.ServicesHost.Controllers
         } 
         #endregion
 
-        [NonAction]
+        [HttpGet("brands")]
         public IEnumerable<BrandDTO> GetBrands()
         {
             return _productService.GetBrands();
         }
-        [NonAction]
+        [HttpGet("category")]
         public IEnumerable<CategoryDTO> GetCategories()
         {
             return _productService.GetCategories();
@@ -40,8 +40,8 @@ namespace Victor_WebStore.ServicesHost.Controllers
             return _productService.GetProductById(id);
         }
 
-        [HttpGet]
-        public IEnumerable<ProductDTO> GetProducts(ProductFilter filter)
+        [HttpPost]
+        public IEnumerable<ProductDTO> GetProducts([FromBody]ProductFilter filter=null)
         {
             return _productService.GetProducts(filter);
         }
