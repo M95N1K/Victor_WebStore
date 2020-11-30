@@ -29,17 +29,6 @@ namespace Victor_WebStore.ServicesHost
             services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<WebStoreContext>()
                 .AddDefaultTokenProviders();
 
-            //services.ConfigureApplicationCookie(options =>
-            //{
-            //    options.Cookie.Name = "VWebStore";
-            //    options.Cookie.HttpOnly = true;
-            //    //options.Cookie.Expiration = TimeSpan.FromDays(150);
-            //    options.LoginPath = "/Account/Login";
-            //    options.LogoutPath = "/Account/Logout";
-            //    options.AccessDeniedPath = "/Account/AccessDenaied";
-            //    options.SlidingExpiration = true;
-            //});
-
             services.Configure<IdentityOptions>(options =>
             {
                 //Настройки пароля
@@ -61,14 +50,13 @@ namespace Victor_WebStore.ServicesHost
                 options.User.RequireUniqueEmail = true;
             });
 
-
             services.AddSingleton<IEmployeesService, InMemoryEmployeesService>();
             services.AddScoped<IProductService, SqlProductService>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<ICartService, CoockieCartService>();
             services.AddScoped<IOrderService, SqlOrderService>();
-            
 
+            
 
 
             services.AddControllers();

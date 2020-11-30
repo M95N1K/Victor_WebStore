@@ -13,6 +13,7 @@ using Victor_WebStore.Domain;
 using Victor_WebStore.DAL;
 using Microsoft.EntityFrameworkCore;
 using WebStore.Domain.DTO.Identity;
+using Microsoft.Extensions.Logging;
 
 namespace Victor_WebStore.ServicesHost.Controllers.Identity
 {
@@ -21,39 +22,86 @@ namespace Victor_WebStore.ServicesHost.Controllers.Identity
     public class UsersApiController : ControllerBase
 {
         private readonly UserStore<User, IdentityRole, WebStoreContext> _UserStore;
+        private readonly ILogger<UsersApiController> _logger;
 
-        public UsersApiController(WebStoreContext db)
+        public UsersApiController(WebStoreContext db, ILogger<UsersApiController> logger)
         {
             _UserStore = new UserStore<User, IdentityRole, WebStoreContext>(db);
+            _logger = logger;
         }
 
         [HttpGet("all")] // api/users/all
-        public async Task<IEnumerable<User>> GetAllUsers() => await _UserStore.Users.ToArrayAsync();
+        public async Task<IEnumerable<User>> GetAllUsers()
+        {
+            var result = await _UserStore.Users.ToArrayAsync();
+            _logger.LogDebug($"Get All Users: Count - {result.Length}");
+            return result;
+        }
 
         #region Users
 
         [HttpPost("UserId")] // POST: api/users/UserId
-        public async Task<string> GetUserIdAsync([FromBody] User user) => await _UserStore.GetUserIdAsync(user);
+        public async Task<string> GetUserIdAsync([FromBody] User user)
+        {
+            var respone = await _UserStore.GetUserIdAsync(user);
+            _logger.LogDebug($"Get UserID: User - {user.UserName}, ID - {(respone)}");
+            return respone;
+        }
 
         [HttpPost("UserName")]
-        public async Task<string> GetUserNameAsync([FromBody] User user) => await _UserStore.GetUserNameAsync(user);
+        public async Task<string> GetUserNameAsync([FromBody] User user)
+        {
+            var respone = await _UserStore.GetUserNameAsync(user);
+            _logger.LogDebug($"Get UserName: User - {user.UserName}, UserName - {(respone)}");
+
+            return respone;
+        }
 
         [HttpPost("UserName/{name}")] // api/users/UserName/TestUser
         public async Task<string> SetUserNameAsync([FromBody] User user, string name)
         {
             await _UserStore.SetUserNameAsync(user, name);
-            await _UserStore.UpdateAsync(user);
+            var respone = await _UserStore.UpdateAsync(user);
+            if (!respone.Succeeded)
+            {
+                _logger.LogError($"Error Set UserName\n Old name: {user.UserName}, New name: {name}");
+                foreach (var item in respone.Errors)
+                {
+                    _logger.LogError($"\tError: {item.Code} - {item.Description}");
+                }
+            }
+            else
+            {
+                _logger.LogInformation($"Set user name OK!");
+            }
+
             return user.UserName;
         }
 
         [HttpPost("NormalUserName")]
-        public async Task<string> GetNormalizedUserNameAsync([FromBody] User user) => await _UserStore.GetNormalizedUserNameAsync(user);
+        public async Task<string> GetNormalizedUserNameAsync([FromBody] User user)
+        {
+            var respone = await _UserStore.GetNormalizedUserNameAsync(user);
+            _logger.LogDebug($"Get Normalize UserName: User - {user.UserName}, NormalizeUserName - {respone}");
+            return respone;
+        }
 
         [HttpPost("NormalUserName/{name}")]
         public async Task<string> SetNormalizedUserNameAsync([FromBody] User user, string name)
         {
             await _UserStore.SetNormalizedUserNameAsync(user, name);
-            await _UserStore.UpdateAsync(user);
+            var respone = await _UserStore.UpdateAsync(user);
+
+            if (!respone.Succeeded)
+            {
+                _logger.LogError($"Error Set NormalizedUserName\n Old name: {user.UserName}, New name: {(name)}");
+                foreach (var item in respone.Errors)
+                {
+                    _logger.LogError($"\tError: {item.Code} - {item.Description}");
+                }
+            }
+            else _logger.LogInformation($"Set NormalizedUserName OK!");
+
             return user.NormalizedUserName;
         }
 
@@ -62,6 +110,17 @@ namespace Victor_WebStore.ServicesHost.Controllers.Identity
         {
             var creation_result = await _UserStore.CreateAsync(user);
             // добавление ошибок создания нового пользователя в журнал
+
+            if (!creation_result.Succeeded)
+            {
+                _logger.LogError($"Error create user\n Old name: {user.UserName}");
+                foreach (var item in creation_result.Errors)
+                {
+                    _logger.LogError($"\tError: {item.Code} - {item.Description}");
+                }
+            }
+            else _logger.LogInformation($"Create user OK!");
+
             return creation_result.Succeeded;
         }
 
@@ -69,6 +128,17 @@ namespace Victor_WebStore.ServicesHost.Controllers.Identity
         public async Task<bool> UpdateAsync([FromBody] User user)
         {
             var update_result = await _UserStore.UpdateAsync(user);
+
+            if(!update_result.Succeeded)
+            {
+                _logger.LogError($"Error Update user: User - {user.UserName}");
+                foreach (var item in update_result.Errors)
+                {
+                    _logger.LogError($"\tError: {item.Code} - {item.Description}");
+                }
+            }
+            else _logger.LogInformation($"Update user OK!");
+
             return update_result.Succeeded;
         }
 
@@ -76,100 +146,191 @@ namespace Victor_WebStore.ServicesHost.Controllers.Identity
         public async Task<bool> DeleteAsync([FromBody] User user)
         {
             var delete_result = await _UserStore.DeleteAsync(user);
+
+            if (!delete_result.Succeeded)
+            {
+                _logger.LogError($"Error Delete user: User - {user.UserName}");
+                foreach (var item in delete_result.Errors)
+                {
+                    _logger.LogError($"\tError: {item.Code} - {item.Description}");
+                }
+            }
+            else _logger.LogInformation($"Delete user OK!");
+
             return delete_result.Succeeded;
         }
 
         [HttpGet("User/Find/{id}")] // api/users/user/Find/9E5CB5E7-41DE-4449-829E-45F4C97AA54B
-        public async Task<User> FindByIdAsync(string id) => await _UserStore.FindByIdAsync(id);
+        public async Task<User> FindByIdAsync(string id)
+        {
+            User result = await _UserStore.FindByIdAsync(id);
+            _logger.LogDebug($"Find By ID: ID - {id}, Found User - {result.UserName}");
+            return result;
+        }
 
         [HttpGet("User/Normal/{name}")] // api/users/user/Normal/TestUser
-        public async Task<User> FindByNameAsync(string name) => await _UserStore.FindByNameAsync(name);
+        public async Task<User> FindByNameAsync(string name)
+        {
+            User result = await _UserStore.FindByNameAsync(name);
+            _logger.LogDebug($"Find By Name: Name - {name}, Found User - {result.UserName}");
+            return result;
+        }
 
         [HttpPost("Role/{role}")]
         public async Task AddToRoleAsync([FromBody] User user, string role, [FromServices] WebStoreContext db)
         {
             await _UserStore.AddToRoleAsync(user, role);
-            await db.SaveChangesAsync();
+            int result = await db.SaveChangesAsync();
+            _logger.LogDebug($"Add Role - {role} to User - {user.UserName} : Code {result}");
         }
 
         [HttpPost("Role/Delete/{role}")]
         public async Task RemoveFromRoleAsync([FromBody] User user, string role, [FromServices] WebStoreContext db)
         {
             await _UserStore.RemoveFromRoleAsync(user, role);
-            await db.SaveChangesAsync();
+            int result = await db.SaveChangesAsync();
+            _logger.LogDebug($"Add Role - {role} to User - {user.UserName} : Code {result}");
         }
 
         [HttpPost("Roles")]
-        public async Task<IList<string>> GetRolesAsync([FromBody] User user) => await _UserStore.GetRolesAsync(user);
+        public async Task<IList<string>> GetRolesAsync([FromBody] User user)
+        {
+            IList<string> result = await _UserStore.GetRolesAsync(user);
+            _logger.LogDebug($"Get Roles: Count {result.Count}");
+            return result;
+        }
 
         [HttpPost("InRole/{role}")]
-        public async Task<bool> IsInRoleAsync([FromBody] User user, string role) => await _UserStore.IsInRoleAsync(user, role);
+        public async Task<bool> IsInRoleAsync([FromBody] User user, string role)
+        {
+            bool result = await _UserStore.IsInRoleAsync(user, role);
+            _logger.LogDebug($"Is In Role: User - {user.UserName}, Role - {role}");
+            return result;
+        }
 
         [HttpGet("UsersInRole/{role}")]
-        public async Task<IList<User>> GetUsersInRoleAsync(string role) => await _UserStore.GetUsersInRoleAsync(role);
+        public async Task<IList<User>> GetUsersInRoleAsync(string role)
+        {
+            IList<User> result = await _UserStore.GetUsersInRoleAsync(role);
+            _logger.LogDebug($"Users In Role: Role - {role}, Count Users - {result.Count}");
+            return result;
+        }
 
         [HttpPost("GetPasswordHash")]
-        public async Task<string> GetPasswordHashAsync([FromBody] User user) => await _UserStore.GetPasswordHashAsync(user);
+        public async Task<string> GetPasswordHashAsync([FromBody] User user)
+        {
+            string result = await _UserStore.GetPasswordHashAsync(user);
+            _logger.LogDebug($"Get Password Hash: User - {user.UserName}");
+            return result;
+        }
 
         [HttpPost("SetPasswordHash")]
         public async Task<string> SetPasswordHashAsync([FromBody] PasswordHashDTO hash)
         {
             await _UserStore.SetPasswordHashAsync(hash.User, hash.Hash);
-            await _UserStore.UpdateAsync(hash.User);
+            IdentityResult result = await _UserStore.UpdateAsync(hash.User);
+            if(!result.Succeeded)
+            {
+                _logger.LogError($"Error SetPasswordHash: User - {hash.User.UserName}, Hash - {hash.Hash}");
+                foreach (var item in result.Errors)
+                {
+                    _logger.LogError($"\tError: {item.Code} - {item.Description}");
+                }
+            }
+            else
+            {
+                _logger.LogInformation($"SetPasswordHash OK!: User - {hash.User.UserName}");
+            }
             return hash.User.PasswordHash;
         }
 
         [HttpPost("HasPassword")]
-        public async Task<bool> HasPasswordAsync([FromBody] User user) => await _UserStore.HasPasswordAsync(user);
+        public async Task<bool> HasPasswordAsync([FromBody] User user)
+        {
+            bool result = await _UserStore.HasPasswordAsync(user);
+            _logger.LogDebug($"HasPassword: User ({user.UserName}) - {result}");
+            return result;
+        }
 
         #endregion
 
         #region Claims
 
         [HttpPost("GetClaims")]
-        public async Task<IList<Claim>> GetClaimsAsync([FromBody] User user) => await _UserStore.GetClaimsAsync(user);
+        public async Task<IList<Claim>> GetClaimsAsync([FromBody] User user)
+        {
+            IList<Claim> result = await _UserStore.GetClaimsAsync(user);
+            _logger.LogDebug($"GetClaims: User - {user.UserName}, Count - {result.Count}");
+            return result;
+        }
 
         [HttpPost("AddClaims")]
         public async Task AddClaimsAsync([FromBody] AddClaimDTO ClaimInfo, [FromServices] WebStoreContext db)
         {
             await _UserStore.AddClaimsAsync(ClaimInfo.User, ClaimInfo.Claims);
-            await db.SaveChangesAsync();
+            var respone = await db.SaveChangesAsync();
+            _logger.LogDebug($"Add Claims: Code - {respone}");
         }
 
         [HttpPost("ReplaceClaim")]
         public async Task ReplaceClaimAsync([FromBody] ReplaceClaimDTO ClaimInfo, [FromServices] WebStoreContext db)
         {
             await _UserStore.ReplaceClaimAsync(ClaimInfo.User, ClaimInfo.Claim, ClaimInfo.NewClaim);
-            await db.SaveChangesAsync();
+            var respone = await db.SaveChangesAsync();
+            _logger.LogDebug($"Replace Claim: Code - {respone}");
         }
 
         [HttpPost("RemoveClaim")]
         public async Task RemoveClaimsAsync([FromBody] RemoveClaimDTO ClaimInfo, [FromServices] WebStoreContext db)
         {
             await _UserStore.RemoveClaimsAsync(ClaimInfo.User, ClaimInfo.Claims);
-            await db.SaveChangesAsync();
+            var respone = await db.SaveChangesAsync();
+            _logger.LogDebug($"Remove Claimss Code - {respone}");
         }
 
         [HttpPost("GetUsersForClaim")]
-        public async Task<IList<User>> GetUsersForClaimAsync([FromBody] Claim claim) =>
-            await _UserStore.GetUsersForClaimAsync(claim);
+        public async Task<IList<User>> GetUsersForClaimAsync([FromBody] Claim claim)
+        {
+            IList<User> result = await _UserStore.GetUsersForClaimAsync(claim);
+            _logger.LogDebug($"GetUsersForClaim: Count User - {result.Count}");
+            return result;
+        }
 
         #endregion
 
         #region TwoFactor
 
         [HttpPost("GetTwoFactorEnabled")]
-        public async Task<bool> GetTwoFactorEnabledAsync([FromBody] User user) => await _UserStore.GetTwoFactorEnabledAsync(user);
+        public async Task<bool> GetTwoFactorEnabledAsync([FromBody] User user)
+        {
+            bool result = await _UserStore.GetTwoFactorEnabledAsync(user);
+            _logger.LogDebug($"GetTwoFactorEnabled: User - {user.UserName}, IsEnabled - {result}");
+            return result;
+        }
 
         [HttpPost("SetTwoFactor/{enable}")]
         public async Task<bool> SetTwoFactorEnabledAsync([FromBody] User user, bool enable)
         {
             await _UserStore.SetTwoFactorEnabledAsync(user, enable);
-            await _UserStore.UpdateAsync(user);
+            IdentityResult result = await _UserStore.UpdateAsync(user);
+            if (!result.Succeeded)
+            {
+                _logger.LogError($"SetTwoFactor: User - {user.UserName}, Enable - {enable}");
+                foreach (var item in result.Errors)
+                {
+                    _logger.LogError($"\tError: {item.Code} - {item.Description}");
+                }
+            }
+            else
+            {
+                _logger.LogInformation($"SetTwoFactor OK!: User - {user.UserName}, Enable - {enable}");
+            }
             return user.TwoFactorEnabled;
         }
 
         #endregion
+
+        /*------------------------------------------------------------------------------------------*/
 
         #region Email/Phone
 
