@@ -1,4 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using Victor_WebStore.Domain.DTO.Order;
 using Victor_WebStore.Domain.ViewModels;
 using Victor_WebStore.Interfaces.Services;
 
@@ -60,7 +64,22 @@ namespace Victor_WebStore.Controllers
         {
             if (ModelState.IsValid)
             {
-                var orderResult = _orderService.CreateOrder(model, _cartService.TransformCart(),
+                OrderDTO order = new OrderDTO
+                { 
+                    Address = model.Address,
+                    Name = model.Name,
+                    Phone = model.Phone,
+                };
+
+                List<OrderItemDTO> items = _cartService.ToOrderItems().ToList();
+
+                CreateOrderModel orderModel = new CreateOrderModel
+                {
+                    Items = items,
+                    Order = order,
+                };
+
+                var orderResult = _orderService.CreateOrder(orderModel,
                     User.Identity.Name);
                 _cartService.RemoveAll();
                 return RedirectToAction("OrderConfirmed", new { id = orderResult.Id });

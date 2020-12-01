@@ -4,9 +4,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Victor_WebStore.DAL;
+using Victor_WebStore.Domain.DTO.Order;
 using Victor_WebStore.Domain.Entities;
 using Victor_WebStore.Domain.ViewModels;
 using Victor_WebStore.Interfaces.Services;
+using Victor_WebStore.Services.Mapping;
 
 namespace Victor_WebStore.Services
 {
@@ -20,7 +22,7 @@ namespace Victor_WebStore.Services
             _context = webStoreContext;
             _userManager = userManager;
         }
-        public Order CreateOrder(OrderViewModel orderModel, CartViewModel transformCart, string userName)
+        public OrderDTO CreateOrder(CreateOrderModel orderModel, string userName)
         {
             var user = _userManager.FindByNameAsync(userName).Result;
 
@@ -28,23 +30,23 @@ namespace Victor_WebStore.Services
             {
                 var order = new Order()
                 {
-                    Address = orderModel.Address,
-                    Name = orderModel.Name,
+                    Address = orderModel.Order.Address,
+                    Name = orderModel.Order.Name,
                     Date = DateTime.Now,
-                    Phone = orderModel.Phone,
+                    Phone = orderModel.Order.Phone,
                     User = user
                 };
                 _context.Orders.Add(order);
-                foreach (var item in transformCart.Items)
+                foreach (var item in orderModel.Items)
                 {
-                    var productVm = item.Key;
+                    var productVm = item.Product;
                     var product = _context.Products.FirstOrDefault(p => p.Id.Equals(productVm.Id));
                     if (product == null)
                         throw new InvalidOperationException("Товар не найден в базе");
                     var orderItem = new OrderItem()
                     {
                         Price = product.Price,
-                        Quantity = item.Value,
+                        Quantity = item.Quantity,
                         Order = order,
                         Product = product
                     };
@@ -53,33 +55,28 @@ namespace Victor_WebStore.Services
 
                 _context.SaveChanges();
                 transaction.Commit();
-                return order;
+                return order.ToDTO();
             }
         }
 
-        public Order GetOrderById(int id)
+        public IEnumerable<OrderItemDTO> GetOrderItemsByOrder(int id)
         {
-            return _context.Orders
-                .Include(x => x.OrderItems)
-                .Include(x => x.User)
-                .FirstOrDefault(x => x.Id == id);
-        }
-
-        public IEnumerable<OrderItem> GetOrderItemsByOrder(int id)
-        {
-            return _context.OrderItems
+            var result = _context.OrderItems
                 .Include(x => x.Product)
                 //.Include(x => x.Product.Brand)
                 .Include(x => x.Order)
                 .Where(x => x.Order.Id == id);
+            return result.Select(p=>p.ToDTO());
         }
 
-        public IEnumerable<Order> GetUserOrders(string userName)
+        public IEnumerable<OrderDTO> GetUserOrders(string userName)
         {
-            return _context.Orders
+            var result = _context.Orders
                 .Include(x => x.OrderItems)
                 .Include(x => x.User)
-                .Where(x => x.User.UserName == userName);
+                .Where(x => x.User.UserName == userName).ToList();
+
+            return result.Select(p=>p.ToDTO());
         }
     }
 }

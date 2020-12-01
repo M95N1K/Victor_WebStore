@@ -1,4 +1,6 @@
-﻿using Victor_WebStore.Domain.ViewModels;
+﻿using System.Collections.Generic;
+using Victor_WebStore.Domain.DTO.Order;
+using Victor_WebStore.Domain.ViewModels;
 
 namespace Victor_WebStore.Interfaces.Services
 {
@@ -17,5 +19,6 @@ namespace Victor_WebStore.Interfaces.Services
         void RemoveAll();
 
         CartViewModel TransformCart();
+        IEnumerable<OrderItemDTO> ToOrderItems();
     }
 }

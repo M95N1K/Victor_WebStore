@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using Victor_WebStore.DAL;
+using Victor_WebStore.Domain.DTO.Products;
 using Victor_WebStore.Domain.Entities;
 using Victor_WebStore.Interfaces.Services;
+using Victor_WebStore.Services.Mapping;
 
 namespace Victor_WebStore.Services
 {
@@ -16,26 +18,26 @@ namespace Victor_WebStore.Services
             _context = context;
         }
 
-        public IEnumerable<Brand> GetBrands()
+        public IEnumerable<BrandDTO> GetBrands()
         {
-            return _context.Brands.ToList();
+            return _context.Brands.ToDTO().ToList();
         }
 
-        public IEnumerable<Category> GetCategories()
+        public IEnumerable<CategoryDTO> GetCategories()
         {
-            return _context.Categories.ToList();
+            return _context.Categories.ToDTO().ToList();
         }
 
-        public Product GetProductById(int id)
+        public ProductDTO GetProductById(int id)
         {
             var result = _context.Products
                 .Include(p => p.Brand)
                 .Include(c => c.Category)
                 .FirstOrDefault(x => x.Id == id);
-            return result;
+            return result.ToDTO();
         }
 
-        public IEnumerable<Product> GetProducts(ProductFilter filter)
+        public IEnumerable<ProductDTO> GetProducts(ProductFilter filter)
         {
             var listProduct = _context.Products
                 .Include(b => b.Brand)
@@ -48,7 +50,7 @@ namespace Victor_WebStore.Services
                 if (filter.CategoryId.HasValue)
                     listProduct = listProduct.Where(c => c.CategoryId.Equals(filter.CategoryId.Value));
             }
-            return listProduct.ToList();
+            return listProduct.ToDTO().ToList();
         }
     }
 }

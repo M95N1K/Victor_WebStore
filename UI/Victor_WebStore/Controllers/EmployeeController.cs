@@ -67,6 +67,7 @@ namespace Victor_WebStore.Controllers
 
                 item.Name = persona.Name;
                 item.Age = persona.Age;
+                _employeesService.Edit(item);
             }
             else
             {

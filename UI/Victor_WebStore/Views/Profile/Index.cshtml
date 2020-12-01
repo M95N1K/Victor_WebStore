@@ -1,8 +1,15 @@
-﻿
-@{
+﻿@if (User.Identity.IsAuthenticated)
+{
+
+
+
     ViewData["Title"] = "Index";
     Layout = "Partial/_ProfileLayout";
+
+
+    <h2>Index</h2>
+    @if (User.IsInRole("Admins"))
+    {
+        <a asp-area="Admin" asp-controller="products" asp-action="index"> Админка</a>
+    }
 }
-
-<h2>Index</h2>
-

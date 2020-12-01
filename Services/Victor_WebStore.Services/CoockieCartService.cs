@@ -3,9 +3,11 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Victor_WebStore.Domain.DTO.Order;
 using Victor_WebStore.Domain.Entities;
 using Victor_WebStore.Domain.ViewModels;
 using Victor_WebStore.Interfaces.Services;
+using Victor_WebStore.Services.Mapping;
 
 namespace Victor_WebStore.Services
 {
@@ -158,6 +160,24 @@ namespace Victor_WebStore.Services
 
             return r;
         }
+
+        public IEnumerable<OrderItemDTO> ToOrderItems()
+        {
+            var products = _productService.GetProducts(null);
+            List<OrderItemDTO> result = new List<OrderItemDTO>();
+            foreach (var item in Cart.Items)
+            {
+                result.Add( new OrderItemDTO
+                {
+                    Price = products.FirstOrDefault(p => p.Id == item.ProductId).Price,
+                    Quantity = item.Quantity,
+                    Product = products.FirstOrDefault(p => p.Id == item.ProductId)
+                });
+            }
+
+            return result;
+        }
+
 
         public void SetQuantityFromCart(int id, int count)
         {

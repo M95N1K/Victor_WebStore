@@ -52,6 +52,17 @@ namespace Victor_WebStore.Services
             _employees.Remove(employee);
         }
 
+        public void Edit(EmployeeViewModel persona)
+        {
+            if (persona is null)
+            {
+                throw new System.ArgumentNullException(nameof(persona));
+            }
+            var result = _employees.FirstOrDefault(o => o.Id == persona.Id);
+            result.Name = persona.Name;
+            result.Age = persona.Age;
+        }
+
         public IEnumerable<EmployeeViewModel> GetAll()
         {
             return _employees;

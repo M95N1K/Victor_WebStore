@@ -24,6 +24,12 @@ namespace Victor_WebStore.Interfaces.Services
         void Commit();
 
         /// <summary>
+        /// Редактирование работника
+        /// </summary>
+        /// <param name="persona"></param>
+        void Edit(EmployeeViewModel persona);
+
+        /// <summary>
         /// Добавление пользователя
         /// </summary>
         /// <param name="persona"></param>
