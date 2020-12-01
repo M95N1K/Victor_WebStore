@@ -2,74 +2,57 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using Victor_WebStore.DAL;
+using Victor_WebStore.Clients.Employees;
+using Victor_WebStore.Clients.Order;
+using Victor_WebStore.Clients.Products;
+using Victor_WebStore.Clients.Values;
 using Victor_WebStore.Domain.Entities;
 using Victor_WebStore.Interfaces.Services;
 using Victor_WebStore.Interfaces.TestApi;
 using Victor_WebStore.Services;
-using Victor_WebStore.Clients;
-using Victor_WebStore.Clients.Values;
-using Victor_WebStore.Clients.Employees;
-using Victor_WebStore.Clients.Products;
-using Victor_WebStore.Clients.Order;
+using WebStore.Clients.Identity;
 
 namespace Victor_WebStore
 {
     public sealed record Startup(IConfiguration Configuration)
     {
-        
+
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            //services.AddSingleton<IEmployeesService, InMemoryEmployeesService>();
             services.AddSingleton<IEmployeesService, EmployeesClient>();
-            //services.AddScoped<IProductService, SqlProductService>();
             services.AddScoped<IProductService, ProductsClient>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<ICartService, CoockieCartService>();
-            //services.AddScoped<IOrderService, SqlOrderService>();
             services.AddScoped<IOrderService, OrderClients>();
-
             services.AddTransient<IValueService, ValuesClient>();
 
-            services.AddDbContext<WebStoreContext>(options => options
-                .UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<WebStoreContext>()
+            services
+                .AddIdentity<User, IdentityRole>()
                 .AddDefaultTokenProviders();
 
-            services.Configure<IdentityOptions>(options =>
-            {
-                //Настройки пароля
+            services
+               .AddTransient<IUserStore<User>, UsersClient>()
+               .AddTransient<IUserRoleStore<User>, UsersClient>()
+               .AddTransient<IUserPasswordStore<User>, UsersClient>()
+               .AddTransient<IUserEmailStore<User>, UsersClient>()
+               .AddTransient<IUserPhoneNumberStore<User>, UsersClient>()
+               .AddTransient<IUserTwoFactorStore<User>, UsersClient>()
+               .AddTransient<IUserClaimStore<User>, UsersClient>()
+               .AddTransient<IUserLoginStore<User>, UsersClient>();
 
-#if DEBUG
-                options.Password.RequireDigit = false;
-                options.Password.RequiredLength = 3;
-                options.Password.RequireLowercase = false;
-                options.Password.RequireUppercase = false;
-                options.Password.RequireNonAlphanumeric = false;
-                options.Password.RequiredUniqueChars = 3;
-#endif
+            services.AddTransient<IRoleStore<IdentityRole>, RolesClient>();
 
-                //
-                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
-                options.Lockout.MaxFailedAccessAttempts = 10;
-                options.Lockout.AllowedForNewUsers = true;
-
-                options.User.RequireUniqueEmail = true;
-            });
 
             services.ConfigureApplicationCookie(options =>
             {
                 options.Cookie.Name = "VWebStore";
                 options.Cookie.HttpOnly = true;
-                //options.Cookie.Expiration = TimeSpan.FromDays(150);
                 options.LoginPath = "/Account/Login";
                 options.LogoutPath = "/Account/Logout";
                 options.AccessDeniedPath = "/Account/AccessDenaied";
