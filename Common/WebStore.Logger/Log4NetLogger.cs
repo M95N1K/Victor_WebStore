@@ -4,7 +4,7 @@ using System;
 using System.Reflection;
 using System.Xml;
 
-namespace WebStore.Logger
+namespace Victor_WebStore.Logger
 {
     public class Log4NetLogger : ILogger
     {

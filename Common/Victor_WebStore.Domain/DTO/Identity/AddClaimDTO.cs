@@ -1,4 +1,4 @@
-﻿namespace WebStore.Domain.DTO.Identity
+﻿namespace Victor_WebStore.Domain.DTO.Identity
 {
     public class AddClaimDTO : ClaimDTO { }
 }

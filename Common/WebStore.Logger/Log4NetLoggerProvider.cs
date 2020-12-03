@@ -2,7 +2,7 @@
 using System.Collections.Concurrent;
 using System.Xml;
 
-namespace WebStore.Logger
+namespace Victor_WebStore.Logger
 {
     public class Log4NetLoggerProvider : ILoggerProvider
     {

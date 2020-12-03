@@ -8,7 +8,7 @@ using Victor_WebStore.Domain;
 using Victor_WebStore.Interfaces.Services.Identity;
 
 
-namespace WebStore.Clients.Identity
+namespace Victor_WebStore.Clients.Identity
 {
     public class RolesClient : BaseClient, IRolesClient
     {
