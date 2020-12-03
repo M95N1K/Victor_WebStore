@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Victor_WebStore.Domain.Entities;
 using Victor_WebStore.Domain.ViewModels;
@@ -35,7 +37,7 @@ namespace Victor_WebStore.Controllers
                 _logger.LogDebug("Входящяа модель не прошла валидацию");
                 return View(model);
             }
-
+            var timer = Stopwatch.StartNew();
             var loginResult = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, false);
 
             if (!loginResult.Succeeded)
@@ -44,7 +46,7 @@ namespace Victor_WebStore.Controllers
                 _logger.LogWarning("Ошибка входа пользователя {0}",model.UserName);
                 return View(model);
             }
-            _logger.LogInformation("Пользователь {0} вошел в систему",model.UserName);
+            _logger.LogInformation("Пользователь {0} вошел в систему. Время {1} мс.",model.UserName,timer.Elapsed.Milliseconds);
             if (Url.IsLocalUrl(model.ReturnUrl))
             {
                 return Redirect(model.ReturnUrl);
