@@ -45,7 +45,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Common\Victor_WebStore.Domain\Victor_WebStore.Domain.csproj" />
-    <ProjectReference Include="..\..\Common\WebStore.Logger\WebStore.Logger.csproj" />
+    <ProjectReference Include="..\..\Common\Victor_WebStore.Logger\Victor_WebStore.Logger.csproj" />
     <ProjectReference Include="..\..\Services\Victor_WebStore.Clients\Victor_WebStore.Clients.csproj" />
     <ProjectReference Include="..\..\Services\Victor_WebStore.DAL\Victor_WebStore.DAL.csproj" />
     <ProjectReference Include="..\..\Services\Victor_WebStore.Interfaces\Victor_WebStore.Interfaces.csproj" />

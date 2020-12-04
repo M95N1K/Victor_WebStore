@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Common\Victor_WebStore.Domain\Victor_WebStore.Domain.csproj" />
+    <ProjectReference Include="..\..\Common\Victor_WebStore.Logger\Victor_WebStore.Logger.csproj" />
     <ProjectReference Include="..\..\Common\WebStore.Logger\Victor_WebStore.Logger.csproj" />
     <ProjectReference Include="..\Victor_WebStore.DAL\Victor_WebStore.DAL.csproj" />
     <ProjectReference Include="..\Victor_WebStore.Interfaces\Victor_WebStore.Interfaces.csproj" />
