@@ -27,10 +27,10 @@ namespace Victor_WebStore.Controllers
         }
 
         
-        public IActionResult Checkout()
-        {
-            return View();
-        }
+        //public IActionResult Checkout()
+        //{
+        //    return View();
+        //}
 
         public IActionResult Contact()
         {

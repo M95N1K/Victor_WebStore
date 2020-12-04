@@ -16,5 +16,37 @@ namespace Victor_WebStore.Tests
             var result = controller.Index();
             Assert.IsType<ViewResult>(result);
         }
+
+        [TestMethod]
+        public void NotFound404_Return_View()
+        {
+            var controller = new HomeController();
+            var result = controller.NotFound404();
+            Assert.IsType<ViewResult>(result);
+        }
+
+        [TestMethod]
+        public void Blog_Return_View()
+        {
+            var controller = new HomeController();
+            var result = controller.Blog();
+            Assert.IsType<ViewResult>(result);
+        }
+
+        [TestMethod]
+        public void BlogSingle_Return_View()
+        {
+            var controller = new HomeController();
+            var result = controller.BlogSingle();
+            Assert.IsType<ViewResult>(result);
+        }
+
+        [TestMethod]
+        public void Contact_Return_View()
+        {
+            var controller = new HomeController();
+            var result = controller.Contact();
+            Assert.IsType<ViewResult>(result);
+        }
     }
 }
