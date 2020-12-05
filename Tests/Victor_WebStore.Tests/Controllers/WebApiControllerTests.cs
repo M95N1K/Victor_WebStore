@@ -15,19 +15,19 @@ namespace Victor_WebStore.Tests.Controllers
     [TestClass]
     public class WebApiControllerTests
     {
-        Mock<IValueService> value_service_mock;
-        WebApiController controller;
+        Mock<IValueService> _value_service_mock;
+        WebApiController _controller;
 
         [TestInitialize]
         public void InitTest()
         {
             var excepted_values = new[] { "1", "2", "3" };
-            value_service_mock = new Mock<IValueService>();
-            value_service_mock
+            _value_service_mock = new Mock<IValueService>();
+            _value_service_mock
                 .Setup(service => service.Get())
                 .Returns(excepted_values);
 
-            controller = new WebApiController(value_service_mock.Object);
+            _controller = new WebApiController(_value_service_mock.Object);
         }
 
         [TestMethod]
@@ -35,15 +35,15 @@ namespace Victor_WebStore.Tests.Controllers
         {
             //Стаб
             const int expected_count = 3;
-            var result = controller.Index();
+            var result = _controller.Index();
             var result_view = Assert.IsType<ViewResult>(result);
             var result_model = Assert.IsAssignableFrom<IEnumerable<string>>(result_view.Model);
             Assert.Equal(expected_count, result_model.Count());
 
             //Mok
 
-            value_service_mock.Verify(service => service.Get());
-            value_service_mock.VerifyNoOtherCalls();
+            _value_service_mock.Verify(service => service.Get());
+            _value_service_mock.VerifyNoOtherCalls();
         }
 
         
