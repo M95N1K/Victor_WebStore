@@ -84,6 +84,7 @@ namespace Victor_WebStore.Controllers
                 _cartService.RemoveAll();
                 return RedirectToAction("OrderConfirmed", new { id = orderResult.Id });
             }
+
             var detailsModel = new OrderDetailsViewModel()
             {
                 CartViewModel = _cartService.TransformCart(),
