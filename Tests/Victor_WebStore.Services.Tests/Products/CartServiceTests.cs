@@ -14,7 +14,7 @@ using Assert = Xunit.Assert;
 namespace Victor_WebStore.Services.Tests.Products
 {
     [TestClass]
-    public class CoockieCartServiceTests
+    public class CartServiceTests
     {
         private Cart _cart;
         private Mock<IProductService> _productServiceMock;
@@ -41,6 +41,7 @@ namespace Victor_WebStore.Services.Tests.Products
                     { 
                         Id=1,
                         Name = "Product 1",
+                        Price = 1,
                         Brand = new BrandDTO { Id = 1,Name = "Brand 1"},
                         Category = new CategoryDTO { Id = 1, Name = "Category 1"},
                     },
@@ -49,6 +50,7 @@ namespace Victor_WebStore.Services.Tests.Products
                     {
                         Id=2,
                         Name = "Product 2",
+                        Price = 2,
                         Brand = new BrandDTO { Id = 2,Name = "Brand 2"},
                         Category = new CategoryDTO { Id = 2, Name = "Category 2"},
                     },
