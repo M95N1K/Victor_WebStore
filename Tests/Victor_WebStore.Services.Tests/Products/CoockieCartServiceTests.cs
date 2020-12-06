@@ -1,10 +1,14 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Victor_WebStore.Domain.DTO.Products;
+using Victor_WebStore.Domain.Entities;
 using Victor_WebStore.Domain.ViewModels;
+using Victor_WebStore.Interfaces.Services;
 using Assert = Xunit.Assert;
 
 namespace Victor_WebStore.Services.Tests.Products
@@ -12,12 +16,14 @@ namespace Victor_WebStore.Services.Tests.Products
     [TestClass]
     public class CoockieCartServiceTests
     {
+        private Cart _cart;
+        private Mock<IProductService> _productServiceMock;
+        private ICartService _cartService;
 
-        [TestMethod]
-        public void Cart_Class_ItemsCount_Correct_Quantity()
+        [TestInitialize]
+        public void InitTest()
         {
-            const int expected_item_count = 4;
-            var cart = new Cart
+            _cart = new Cart
             {
                 Items = new List<CartItem>
                 {
@@ -26,7 +32,39 @@ namespace Victor_WebStore.Services.Tests.Products
                 }
             };
 
-            Assert.Equal(expected_item_count, cart.ItemsCount);
+            _productServiceMock = new Mock<IProductService>();
+            _productServiceMock
+                .Setup(c => c.GetProducts(It.IsAny<ProductFilter>()))
+                .Returns(new List<ProductDTO>
+                {
+                    new ()
+                    { 
+                        Id=1,
+                        Name = "Product 1",
+                        Brand = new BrandDTO { Id = 1,Name = "Brand 1"},
+                        Category = new CategoryDTO { Id = 1, Name = "Category 1"},
+                    },
+
+                    new ()
+                    {
+                        Id=2,
+                        Name = "Product 2",
+                        Brand = new BrandDTO { Id = 2,Name = "Brand 2"},
+                        Category = new CategoryDTO { Id = 2, Name = "Category 2"},
+                    },
+
+                });
+
+        }
+
+        [TestMethod]
+        public void Cart_Class_ItemsCount_Correct_Quantity()
+        {
+            const int expected_item_count = 4;
+
+            var actual_ItemCount = _cart.ItemsCount;
+
+            Assert.Equal(expected_item_count, actual_ItemCount);
         }
 
         [TestMethod]
