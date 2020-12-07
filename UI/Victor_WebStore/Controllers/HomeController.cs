@@ -6,28 +6,6 @@ namespace Victor_WebStore.Controllers
 {
     public class HomeController : Controller
     {
-        private List<EmployeeViewModel> _employees = new List<EmployeeViewModel>()
-        {
-            new EmployeeViewModel()
-            {
-                Id = 1,
-                Age = 25,
-                Name = "Иван"
-            },
-            new EmployeeViewModel()
-            {
-                Id = 2,
-                Age = 30,
-                Name = "Алексей"
-            },
-            new EmployeeViewModel()
-            {
-                Id = 3,
-                Age = 30,
-                Name = "Василий"
-            }
-        };
-
         public IActionResult Index()
         {
             return View();
@@ -48,28 +26,16 @@ namespace Victor_WebStore.Controllers
             return View();
         }
 
-        //public IActionResult Cart()
+        
+        //public IActionResult Checkout()
         //{
         //    return View();
         //}
-
-        public IActionResult Checkout()
-        {
-            return View();
-        }
 
         public IActionResult Contact()
         {
             return View();
         }
-
-        //public IActionResult Login()
-        //{
-        //    return View();
-        //}
-
-
-
 
     }
 }

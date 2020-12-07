@@ -30,7 +30,8 @@ namespace Victor_WebStore
             services.AddSingleton<IEmployeesService, EmployeesClient>();
             services.AddScoped<IProductService, ProductsClient>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddScoped<ICartService, CoockieCartService>();
+            services.AddScoped<ICartService, CartService>();
+            services.AddScoped<ICartStore, CoockiesCartStore>();
             services.AddScoped<IOrderService, OrderClients>();
             services.AddTransient<IValueService, ValuesClient>();
 
