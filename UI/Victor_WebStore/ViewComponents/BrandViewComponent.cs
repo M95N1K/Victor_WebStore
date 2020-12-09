@@ -17,7 +17,7 @@ namespace Victor_WebStore.ViewComponents
             _productService = productService;
         }
 
-        public IViewComponentResult Invoke()
+        public IViewComponentResult Invoke(string BrandId)
         {
             var brands = GetBrand();
             return View(brands);
