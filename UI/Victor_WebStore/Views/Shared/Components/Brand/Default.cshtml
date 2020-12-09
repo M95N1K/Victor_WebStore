@@ -1,13 +1,18 @@
-﻿@model IEnumerable<BrandViewModel>
+﻿@model SelektableBrandViewModel
 
 <div class="brands_products">
     <!--brands_products-->
     <h2>Brands</h2>
     <div class="brands-name">
         <ul class="nav nav-pills nav-stacked">
-            @foreach (var item in Model)
+            @foreach (var item in Model.Brands)
             {
-                <li><a href="~/#"> <span class="pull-right">(@item.Count)</span>@item.Name</a></li>
+                if (item.Count > 0)
+                {
+                    <li @(item.Id == Model.CurrentBrandId ? "class=active" : null)>
+                        <a asp-controller="catalog" asp-action="shop" asp-route-brandId="@item.Id"> <span class="pull-right">(@item.Count)</span>@item.Name</a>
+                    </li>
+                }
             }
         </ul>
     </div>

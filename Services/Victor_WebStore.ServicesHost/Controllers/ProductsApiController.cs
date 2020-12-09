@@ -18,10 +18,10 @@ namespace Victor_WebStore.ServicesHost.Controllers
         #region Конструктор
         private readonly IProductService _productService;
 
-        public ProductsApiController(IProductService ProductService)
-        {
-            _productService = ProductService;
-        } 
+        public ProductsApiController(IProductService ProductService) => _productService = ProductService;
+
+        [HttpGet("brands/{id}")]
+        public BrandDTO GetBrandById(int id) => _productService.GetBrandById(id);
         #endregion
 
         [HttpGet("brands")]
@@ -34,6 +34,10 @@ namespace Victor_WebStore.ServicesHost.Controllers
         {
             return _productService.GetCategories();
         }
+
+        [HttpGet("category/{id}")]
+        public CategoryDTO GetCategoryById(int id) => _productService.GetCategoryById(id);
+
         [HttpGet("{id}")]
         public ProductDTO GetProductById(int id)
         {

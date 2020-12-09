@@ -17,6 +17,11 @@ namespace Victor_WebStore.Domain.ViewModels
     {
         public static ProductViewModel ToViewModel(this Product product)
         {
+            if (product is null)
+            {
+                return null;
+            }
+
             ProductViewModel result = new ProductViewModel()
             {
                 Brand = product.Brand != null ? product.Brand.Name : string.Empty,

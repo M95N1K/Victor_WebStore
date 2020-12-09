@@ -18,6 +18,8 @@ namespace Victor_WebStore.Services
             _context = context;
         }
 
+        public BrandDTO GetBrandById(int id) => _context.Brands.FirstOrDefault(d => d.Id == id).ToDTO();
+
         public IEnumerable<BrandDTO> GetBrands()
         {
             return _context.Brands.ToDTO().ToList();
@@ -28,12 +30,16 @@ namespace Victor_WebStore.Services
             return _context.Categories.ToDTO().ToList();
         }
 
+        public CategoryDTO GetCategoryById(int id) => _context.Categories.FirstOrDefault(d => d.Id == id).ToDTO();
+
         public ProductDTO GetProductById(int id)
         {
             var result = _context.Products
                 .Include(p => p.Brand)
                 .Include(c => c.Category)
                 .FirstOrDefault(x => x.Id == id);
+            if (result is null)
+                return null;
             return result.ToDTO();
         }
 
