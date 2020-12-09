@@ -34,6 +34,8 @@ namespace Victor_WebStore.Services
                 .Include(p => p.Brand)
                 .Include(c => c.Category)
                 .FirstOrDefault(x => x.Id == id);
+            if (result is null)
+                return null;
             return result.ToDTO();
         }
 

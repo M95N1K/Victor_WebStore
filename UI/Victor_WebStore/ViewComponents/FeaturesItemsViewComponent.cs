@@ -17,7 +17,7 @@ namespace Victor_WebStore.ViewComponents
             _productService = productService;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync()
+        public IViewComponentResult Invoke()
         {
             var allitems = GetItems();
             var items = new List<ProductViewModel>();

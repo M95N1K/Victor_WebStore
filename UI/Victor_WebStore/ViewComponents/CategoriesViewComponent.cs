@@ -17,7 +17,7 @@ namespace Victor_WebStore.ViewComponents
             _productService = productService;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync()
+        public IViewComponentResult Invoke()
         {
             var Categories = GetCategories();
             return View(Categories);

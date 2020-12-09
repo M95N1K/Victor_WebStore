@@ -122,26 +122,24 @@
                                 <ul class="nav navbar-nav collapse navbar-collapse">
                                     <li><a asp-controller="home" asp-action="index" class="active">Home</a></li>
                                     <li class="dropdown">
-                                        <a href="~/#">Shop<i class="fa fa-angle-down"></i></a>
+                                        <a vws-is-active-route vws-ignore-acrion asp-controller="catalog" asp-action="shop">Shop<i class="fa fa-angle-down"></i></a>
                                         <ul role="menu" class="sub-menu">
-                                            <li><a asp-controller="catalog" asp-action="shop">Products</a></li>
-                                            <li><a asp-controller="catalog" asp-action="ProductDetails">Product Details</a></li>
-                                            <li><a asp-controller="home" asp-action="checkout">Checkout</a></li>
-                                            <li><a asp-controller="Cart" asp-action="Details">Cart</a></li>
+                                            <li><a vws-is-active-route vws-ignore-acrion asp-controller="catalog" asp-action="shop">Products</a></li>
+                                            <li><a vws-is-active-route asp-controller="Cart" asp-action="Details">Cart</a></li>
                                             <li></li>
                                         </ul>
                                     </li>
                                     <li class="dropdown">
-                                        <a href="~/#">Blog<i class="fa fa-angle-down"></i></a>
+                                        <a vws-is-active-route asp-controller="home" asp-action="blog">Blog<i class="fa fa-angle-down"></i></a>
                                         <ul role="menu" class="sub-menu">
-                                            <li><a asp-controller="home" asp-action="blog">Blog List</a></li>
-                                            <li><a asp-controller="home" asp-action="blogsingle">Blog Single</a></li>
+                                            <li><a vws-is-active-route asp-controller="home" asp-action="blog">Blog List</a></li>
+                                            <li><a vws-is-active-route asp-controller="home" asp-action="blogsingle">Blog Single</a></li>
                                         </ul>
                                     </li>
                                     <li><a asp-controller="home" asp-action="NotFound404">404</a></li>
                                     <li><a asp-controller="home" asp-action="contact">Contact</a></li>
-                                    <li><a asp-controller="Employee" asp-action="Employee">Employees</a></li>
-                                    <li><a asp-controller="WebApi" asp-action="Index">WebApi</a></li>
+                                    <li><a vws-is-active-route asp-controller="Employee" asp-action="Employee">Employees</a></li>
+                                    <li><a vws-is-active-route asp-controller="WebApi" asp-action="Index">WebApi</a></li>
                                 </ul>
                             </div>
                         </div>
