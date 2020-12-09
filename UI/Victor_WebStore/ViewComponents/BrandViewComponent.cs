@@ -20,7 +20,12 @@ namespace Victor_WebStore.ViewComponents
         public IViewComponentResult Invoke(string BrandId)
         {
             var brands = GetBrand();
-            return View(brands);
+            var brand_id = int.TryParse(BrandId, out var id) ? id : (int?)null;
+            return View(new SelektableBrandViewModel 
+            {
+                Brands = brands,
+                CurrentBrandId = brand_id,
+            });
         }
 
         private List<BrandViewModel> GetBrand()
