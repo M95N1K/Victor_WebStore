@@ -10,5 +10,7 @@ namespace Victor_WebStore.Interfaces.Services
         IEnumerable<BrandDTO> GetBrands();
         IEnumerable<ProductDTO> GetProducts(ProductFilter filter);
         ProductDTO GetProductById(int id);
+        CategoryDTO GetCategoryById(int id);
+        BrandDTO GetBrandById(int id);
     }
 }
