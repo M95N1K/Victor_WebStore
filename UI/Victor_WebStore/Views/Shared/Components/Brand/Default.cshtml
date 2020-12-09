@@ -7,7 +7,10 @@
         <ul class="nav nav-pills nav-stacked">
             @foreach (var item in Model)
             {
-                <li><a href="~/#"> <span class="pull-right">(@item.Count)</span>@item.Name</a></li>
+                if (item.Count > 0)
+                {
+                <li><a asp-controller="catalog" asp-action="shop" asp-route-brandId="@item.Id"> <span class="pull-right">(@item.Count)</span>@item.Name</a></li>
+                }
             }
         </ul>
     </div>
