@@ -98,5 +98,46 @@ namespace Victor_WebStore.Controllers
             ViewBag.OrderId = id;
             return View();
         }
+
+        #region AJAXMetods
+
+        public IActionResult GetCartView() => ViewComponent("TopCart");
+
+        public IActionResult DecrimentFromCartAJAX(int id)
+        {
+            _cartService.DecrimentFromCart(id);
+            return Ok();
+            //return RedirectToAction("Details");
+        }
+
+        public IActionResult IncimentFromCartAJAX(int id)
+        {
+            _cartService.IncrimentFromCart(id);
+            return Ok();
+            //return RedirectToAction("Details");
+        }
+
+        public IActionResult RemoveFromCartAJAX(int id)
+        {
+            _cartService.RemoveFromCart(id);
+            return Ok();
+            //return RedirectToAction("Details");
+        }
+
+        public IActionResult RemoveAllAJAX()
+        {
+            _cartService.RemoveAll();
+            return Ok();
+            //return RedirectToAction("Details");
+        }
+
+        public IActionResult AddToCartAJAX(int id, string returnUrl)
+        {
+            _cartService.AddToCart(id);
+            return Ok();
+            //return Redirect(returnUrl);
+        } 
+
+        #endregion
     }
 }
