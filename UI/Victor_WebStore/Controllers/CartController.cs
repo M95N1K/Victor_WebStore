@@ -103,6 +103,13 @@ namespace Victor_WebStore.Controllers
 
         public IActionResult GetCartView() => ViewComponent("TopCart");
 
+        public IActionResult GetCartItem(int id)
+        {
+            var item = _cartService.TransformCart().Items.FirstOrDefault(k => k.Key.Id == id);
+
+            return ViewComponent("CartItem",item);
+        }
+
         public IActionResult DecrimentFromCartAJAX(int id)
         {
             _cartService.DecrimentFromCart(id);

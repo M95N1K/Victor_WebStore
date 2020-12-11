@@ -21,40 +21,12 @@
                 <tbody>
                     @foreach (var item in Model.CartViewModel.Items)
                     {
-                        <tr>
-                            <td class="cart_product">
-                                <a asp-action="ProductDetails" asp-controller="Catalog" asp-route-id="@item.Key.Id">
-                                    <img src="~/images/shop/@item.Key.ImageUrl" alt="@item.Key.Name">
-                                </a>
-                            </td>
-                            <td class="cart_description">
-                                <h4><a asp-action="ProductDetails" asp-controller="Catalog" asp-route-id="@item.Key.Id">@item.Key.Name</a></h4>
-                                <p>Web ID: @item.Key.Id</p>
-                            </td>
-                            <td class="cart_price">
-                                <p>@item.Key.Price.ToString("C")</p>
-                            </td>
-                            <td class="cart_quantity">
-                                <div class="cart_quantity_button">
-                                    <a class="cart_quantity_up" asp-controller="Cart" asp-action="IncimentFromCart"
-                                       asp-route-id="@item.Key.Id" asp-route-returnUrl="@Context.Request.Path"> + </a>
-                                    <input class="cart_quantity_input" type="text" name="quantity" value="@item.Value" autocomplete="off" size="2">
-                                    <a class="cart_quantity_down" asp-controller="Cart" asp-action="DecrimentFromCart"
-                                       asp-route-id="@item.Key.Id" asp-route-returnUrl="@Context.Request.Path"> - </a>
-                                </div>
-                            </td>
-                            <td class="cart_total">
-                                <p class="cart_total_price">@((item.Value * item.Key.Price).ToString("C"))</p>
-                            </td>
-                            <td class="cart_delete">
-                                <a class="cart_quantity_delete" asp-controller="Cart" asp-action="RemoveFromCart"
-                                   asp-route-id="@item.Key.Id" asp-route-returnUrl="@Context.Request.Path"><i class="fa fa-times"></i></a>
-                            </td>
+                        <tr id="@item.Key.Id">
+                            <vc:cart-item cart-item="@item"></vc:cart-item>
                         </tr>
                     }
                     <tr>
                         <td>
-
                         </td>
                         <td class="cart_description">
                             <h4>Всего товара</h4>
@@ -71,7 +43,7 @@
                     </tr>
                 </tbody>
             </table>
-        </div>        
+        </div>
     </div>
 </section> <!--/#cart_items-->
 
@@ -80,6 +52,6 @@
         <h3>Оформить заказ</h3>
     </div>
     <div class="row login-form">
-        @Html.PartialAsync("_OrderPartial",Model.OrderViewModel,new ViewDataDictionary(ViewData) { {"sumCart",Model.CartViewModel.TotalPrice } })
+        @Html.PartialAsync("_OrderPartial", Model.OrderViewModel, new ViewDataDictionary(ViewData) { { "sumCart", Model.CartViewModel.TotalPrice } })
     </div>
 </section>

@@ -97,7 +97,7 @@
                                     <li><a href="~/#"><i class="fa fa-user"></i> Account</a></li>
                                     <li><a href="~/#"><i class="fa fa-star"></i> Wishlist</a></li>
                                     <li><a asp-controller="home" asp-action="checkout"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-                                    <li><vc:top-cart/></li>
+                                    <li id="cart-container"><vc:top-cart /></li>
                                     <li><vc:login-logout-vc></vc:login-logout-vc></li>
                                 </ul>
                             </div>
@@ -317,6 +317,7 @@
 
 
         <script src="~/js/jquery.js"></script>
+
         <script src="~/js/bootstrap.min.js"></script>
         <environment include="Development">
             <script src="~/js/price-range.js"></script>
@@ -327,8 +328,22 @@
         <environment exclude="Development">
             <script src="~/js/site.min.js" asp-append-version="true"></script>
         </environment>
-        
+
         <script src="~/js/jquery.scrollUp.min.js"></script>
+        <script src="~/js/Cart/CartLogik.js" asp-append-version="true"></script>
+
+        <script>
+            $(function () {
+                Cart.init({
+                    getCartViewLink: "@Url.Action("GetCartView", "Cart")",
+                    addToCartLink: "@Url.Action("AddToCartAJAX", "Cart")",
+                    incrimentLink: "@Url.Action("IncimentFromCartAJAX", "Cart")",
+                    decrimentLink: "@Url.Action("DecrimentFromCartAJAX", "Cart")",
+                    removeItemLink: "@Url.Action("RemoveFromCartAJAX", "Cart")",
+                    getCartViewItemLink: "@Url.Action("GetCartItem", "Cart")"
+                });
+            })
+        </script>
 
     </body>
 </html>
