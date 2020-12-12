@@ -110,6 +110,13 @@ namespace Victor_WebStore.Controllers
             return ViewComponent("CartItem",item);
         }
 
+        public IActionResult GetTotalPriceView()
+        {
+            var items = _cartService.TransformCart();
+            KeyValuePair<int, decimal> price = new (items.ItemCount,items.TotalPrice);
+            return ViewComponent("TotalPrice", price);
+        }
+
         public IActionResult DecrimentFromCartAJAX(int id)
         {
             _cartService.DecrimentFromCart(id);

@@ -5,6 +5,7 @@
         incrimentLink: "",
         decrimentLink: "",
         removeItemLink: "",
+        getTotalPriceLink: "",
         addToCartLink: ""
     },
 
@@ -36,6 +37,7 @@
             .done(function () {
                 Cart.showToolTip(button);
                 Cart.refreshCartView();
+                Cart.refreshTotalPrice();
             })
             .fail(function () { console.log("AddToCart fail!");});
     },
@@ -49,6 +51,7 @@
             .done(function () {
                 Cart.refreshCartItem(id);
                 Cart.refreshCartView();
+                Cart.refreshTotalPrice();
                 
             })
             .fail(function () { console.log("incrimentProduct fail!"); });
@@ -64,6 +67,7 @@
             .done(function () {
                 Cart.refreshCartItem(id);
                 Cart.refreshCartView();
+                Cart.refreshTotalPrice();
                 
             })
             .fail(function () { console.log("decrimentProduct fail!"); });
@@ -79,15 +83,23 @@
             .done(function () {
                 Cart.refreshCartView();
                 $("#" + id).remove();
+                Cart.refreshTotalPrice();
             })
             .fail(function () { console.log("removeProduct fail!"); });
     },
 
-
-
     showToolTip: function (button) {
         button.tooltip({ title: "Добавление в корзину" }).tooltip("show");
         setTimeout(function () { button.tooltip("destroy");},1000)
+    },
+
+    refreshTotalPrice: function () {
+        var container = $("#total_price_vc");
+        $.get(Cart._properties.getTotalPriceLink)
+            .done(function (cartHtml) {
+                container.html(cartHtml);
+            })
+            .fail(function () { console.log("refreshTotalPrice fail!"); });
     },
 
     refreshCartView: function () {

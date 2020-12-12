@@ -25,8 +25,9 @@
                             <vc:cart-item cart-item="@item"></vc:cart-item>
                         </tr>
                     }
-                    <tr>
-                        <td>
+                    <tr id="total_price_vc">
+                        <vc:total-price total-price="@(new (Model.CartViewModel.ItemCount, Model.CartViewModel.TotalPrice))" />
+                        @*<td>
                         </td>
                         <td class="cart_description">
                             <h4>Всего товара</h4>
@@ -39,7 +40,7 @@
                         </td>
                         <td class="cart_total">
                             <p class="cart_total_price">@Model.CartViewModel.TotalPrice.ToString("C")</p>
-                        </td>
+                        </td>*@
                     </tr>
                 </tbody>
             </table>
@@ -52,6 +53,6 @@
         <h3>Оформить заказ</h3>
     </div>
     <div class="row login-form">
-        @Html.PartialAsync("_OrderPartial", Model.OrderViewModel, new ViewDataDictionary(ViewData) { { "sumCart", Model.CartViewModel.TotalPrice } })
+        @Html.Partial("_OrderPartial", Model.OrderViewModel, new ViewDataDictionary(ViewData) { { "sumCart", Model.CartViewModel.TotalPrice } })
     </div>
 </section>
