@@ -43,20 +43,29 @@ namespace Victor_WebStore.Services
             return result.ToDTO();
         }
 
-        public IEnumerable<ProductDTO> GetProducts(ProductFilter filter)
+        public PageProductDTO GetProducts(ProductFilter filter)
         {
             var listProduct = _context.Products
                 .Include(b => b.Brand)
                 .Include(c => c.Category)
                 .AsQueryable();
-            if (filter != null)
-            {
-                if (filter.BrandId.HasValue)
+            
+                if (filter?.BrandId != null)
                     listProduct = listProduct.Where(c => c.BrandId.HasValue && c.BrandId.Value.Equals(filter.BrandId.Value));
-                if (filter.CategoryId.HasValue)
+                if (filter?.CategoryId != null)
                     listProduct = listProduct.Where(c => c.CategoryId.Equals(filter.CategoryId.Value));
-            }
-            return listProduct.ToDTO().ToList();
+                var total_count = listProduct.Count();
+                if (filter?.PageSize > 0)
+                    listProduct = listProduct
+                        .Skip((filter.Page - 1) * (int)filter.PageSize)
+                        .Take((int)filter.PageSize);
+
+            return new PageProductDTO
+            {
+                ProductsToPage = listProduct.ToDTO().AsEnumerable(),
+                TotalCount  = total_count,
+            };
+             
         }
     }
 }

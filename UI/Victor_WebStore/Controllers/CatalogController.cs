@@ -36,8 +36,6 @@ namespace Victor_WebStore.Controllers
         {
             var page_size = pageSize ?? (int.TryParse(_configuration["PageSize"], out var size) ? size : (int?)null);
 
-
-
             var products = _productService.GetProducts(
                 new ProductFilter 
                 { 
@@ -52,7 +50,13 @@ namespace Victor_WebStore.Controllers
             {
                 BrandId = brandId,
                 CategoryId = categoryId,
-                Products = products.FromDTO().Select(p => p.ToViewModel()).OrderBy(p => p.Order).ToList()
+                Products = products.ProductsToPage.FromDTO().Select(p => p.ToViewModel()).OrderBy(p => p.Order).ToList(),
+                PageViewModel = new PageViewModel
+                {
+                    Page = page,
+                    PageSize = page_size ?? 0,
+                    TotalItems = products.TotalCount,
+                }
             };
 
             return View(model);

@@ -37,26 +37,29 @@ namespace Victor_WebStore.Services.Tests.Products
             _productServiceMock = new Mock<IProductService>();
             _productServiceMock
                 .Setup(c => c.GetProducts(It.IsAny<ProductFilter>()))
-                .Returns(new List<ProductDTO>
+                .Returns(new PageProductDTO
                 {
-                    new ()
-                    { 
-                        Id=1,
-                        Name = "Product 1",
-                        Price = 1,
-                        Brand = new BrandDTO { Id = 1,Name = "Brand 1"},
-                        Category = new CategoryDTO { Id = 1, Name = "Category 1"},
-                    },
-
-                    new ()
+                    ProductsToPage = new List<ProductDTO>()
                     {
-                        Id=2,
-                        Name = "Product 2",
-                        Price = 2,
-                        Brand = new BrandDTO { Id = 2,Name = "Brand 2"},
-                        Category = new CategoryDTO { Id = 2, Name = "Category 2"},
-                    },
+                        new()
+                        {
+                            Id = 1,
+                            Name = "Product 1",
+                            Price = 1,
+                            Brand = new BrandDTO { Id = 1, Name = "Brand 1" },
+                            Category = new CategoryDTO { Id = 1, Name = "Category 1" },
+                        },
 
+                        new()
+                        {
+                            Id = 2,
+                            Name = "Product 2",
+                            Price = 2,
+                            Brand = new BrandDTO { Id = 2, Name = "Brand 2" },
+                            Category = new CategoryDTO { Id = 2, Name = "Category 2" },
+                        },
+                    },
+                    TotalCount = 2,
                 });
 
             _cartStoreMock = new Mock<ICartStore>();

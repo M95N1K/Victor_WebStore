@@ -67,7 +67,7 @@ namespace Victor_WebStore.Tests.Controllers
         [TestMethod]
         public void Shop_Return_CorrectView()
         {
-            var products = new[]
+            var products = new List<ProductDTO>()
             {
                 new ProductDTO
                 {
@@ -110,7 +110,7 @@ namespace Victor_WebStore.Tests.Controllers
             var _product_service_mock = new Mock<IProductService>();
             _product_service_mock
                 .Setup(p => p.GetProducts(It.IsAny<ProductFilter>()))
-                .Returns(products);
+                .Returns(new PageProductDTO { ProductsToPage = products, TotalCount = 2, });
 
             Mock<IConfiguration> _configurationMock = new Mock<IConfiguration>();
             _configurationMock.Setup(c => c["PageSize"])

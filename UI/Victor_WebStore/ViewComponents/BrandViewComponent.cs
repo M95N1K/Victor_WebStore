@@ -38,7 +38,7 @@ namespace Victor_WebStore.ViewComponents
                 brandList.Add(new BrandViewModel
                 {
                     Id = item.Id,
-                    Count = products.Count(p => p.Brand.Name == item.Name),
+                    Count = products.ProductsToPage.Count(p => p.Brand.Name == item.Name),
                     Name = item.Name,
                     Order = item.Order
                 });
