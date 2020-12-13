@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System.Collections.Generic;
@@ -47,7 +49,11 @@ namespace Victor_WebStore.Tests.Controllers
 
                 });
 
-            CatalogController _controller = new CatalogController(_product_service_mock.Object);
+            Mock<IConfiguration> _configurationMock = new Mock<IConfiguration>();
+            _configurationMock.Setup(c => c["PageSize"])
+                .Returns("3");
+
+            CatalogController _controller = new CatalogController(_product_service_mock.Object, _configurationMock.Object);
 
             var result = _controller.ProductDetails(expected_id);
 
@@ -106,11 +112,15 @@ namespace Victor_WebStore.Tests.Controllers
                 .Setup(p => p.GetProducts(It.IsAny<ProductFilter>()))
                 .Returns(products);
 
+            Mock<IConfiguration> _configurationMock = new Mock<IConfiguration>();
+            _configurationMock.Setup(c => c["PageSize"])
+                .Returns("3");
+
             const int expected_category_id = 1;
             const int expected_brand_id = 5;
             const int expected_product_count = 2;
 
-            CatalogController _controller = new CatalogController(_product_service_mock.Object);
+            CatalogController _controller = new CatalogController(_product_service_mock.Object, _configurationMock.Object);
 
             var result = _controller.Shop(expected_category_id, expected_brand_id);
 
