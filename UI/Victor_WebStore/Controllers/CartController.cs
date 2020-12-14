@@ -65,7 +65,7 @@ namespace Victor_WebStore.Controllers
             if (ModelState.IsValid)
             {
                 OrderDTO order = new OrderDTO
-                { 
+                {
                     Address = model.Address,
                     Name = model.Name,
                     Phone = model.Phone,
@@ -103,18 +103,32 @@ namespace Victor_WebStore.Controllers
 
         public IActionResult GetCartView() => ViewComponent("TopCart");
 
-        public IActionResult GetCartItem(int id)
+        public IActionResult GetCartItemCount(int id)
         {
             var item = _cartService.TransformCart().Items.FirstOrDefault(k => k.Key.Id == id);
 
-            return ViewComponent("CartItem",item);
+            return ViewComponent("CartItemCount", item.Value);
+        }
+
+        public IActionResult GetCartItemPrice(int id)
+        {
+            var item = _cartService.TransformCart().Items.FirstOrDefault(k => k.Key.Id == id);
+
+            return ViewComponent("CartItemPrice", item.Value * item.Key.Price);
         }
 
         public IActionResult GetTotalPriceView()
         {
             var items = _cartService.TransformCart();
-            KeyValuePair<int, decimal> price = new (items.ItemCount,items.TotalPrice);
+            decimal price = items.TotalPrice;
             return ViewComponent("TotalPrice", price);
+        }
+
+        public IActionResult GetTotalCountView()
+        {
+            var items = _cartService.TransformCart();
+            var count = items.ItemCount;
+            return ViewComponent("TotalCount", count);
         }
 
         public IActionResult DecrimentFromCartAJAX(int id)
@@ -150,7 +164,7 @@ namespace Victor_WebStore.Controllers
             _cartService.AddToCart(id);
             return Ok();
             //return Redirect(returnUrl);
-        } 
+        }
 
         #endregion
     }

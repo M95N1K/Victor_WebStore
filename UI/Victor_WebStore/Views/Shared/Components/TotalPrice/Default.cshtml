@@ -1,20 +1,4 @@
-﻿@model KeyValuePair<int, decimal>
-@{
-    var Count = Model.Key;
-    var Price = Model.Value;
-}
+﻿@model decimal
+@*TotalPrice*@
+    @Model.ToString("C")
 
-<td>
-</td>
-<td class="cart_description">
-    <h4>Всего товара</h4>
-</td>
-<td class="cart_description">
-    <h4>@Count шт.</h4>
-</td>
-<td class="cart_description">
-    <h4>На сумму</h4>
-</td>
-<td class="cart_total">
-    <p class="cart_total_price">@Price.ToString("C")</p>
-</td>

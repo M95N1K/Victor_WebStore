@@ -1,31 +1,26 @@
 ﻿Cart = {
     _properties: {
         getCartViewLink: "",
-        getCartViewItemLink: "",
+        getCartItemCountLink: "",
+        getCartItemPriceLink: "",
         incrimentLink: "",
         decrimentLink: "",
         removeItemLink: "",
         getTotalPriceLink: "",
+        getTotalCountLink: "",
         addToCartLink: ""
     },
 
     init: function (properties) {
         $.extend(Cart._properties, properties);
 
-        Cart.addAction();
-    },
-
-    addAction: function () {
-        $(".add-to-cart").unbind("click"); // отвязываем действие click
         $(".add-to-cart").click(Cart.addToCart); // привязываем новое действие click
-        $(".cart_quantity_up").unbind("click"); // отвязываем действие click
         $(".cart_quantity_up").click(Cart.incrimentProduct);// привязываем новое действие click
-        $(".cart_quantity_down").unbind("click"); // отвязываем действие click
         $(".cart_quantity_down").click(Cart.decrimentProduct);// привязываем новое действие click
-        $(".cart_quantity_delete").unbind("click"); // отвязываем действие click
         $(".cart_quantity_delete").click(Cart.removeProduct);// привязываем новое действие click
-
     },
+
+    
 
     addToCart: function (event) {
         event.preventDefault();
@@ -39,7 +34,7 @@
                 Cart.refreshCartView();
                 Cart.refreshTotalPrice();
             })
-            .fail(function () { console.log("AddToCart fail!");});
+            .fail(function () { console.log("AddToCart fail!"); });
     },
 
     incrimentProduct: function (event) {
@@ -52,10 +47,10 @@
                 Cart.refreshCartItem(id);
                 Cart.refreshCartView();
                 Cart.refreshTotalPrice();
-                
+
             })
             .fail(function () { console.log("incrimentProduct fail!"); });
-        
+
     },
 
     decrimentProduct: function (event) {
@@ -68,10 +63,10 @@
                 Cart.refreshCartItem(id);
                 Cart.refreshCartView();
                 Cart.refreshTotalPrice();
-                
+
             })
             .fail(function () { console.log("decrimentProduct fail!"); });
-        
+
     },
 
     removeProduct: function (event) {
@@ -90,16 +85,21 @@
 
     showToolTip: function (button) {
         button.tooltip({ title: "Добавление в корзину" }).tooltip("show");
-        setTimeout(function () { button.tooltip("destroy");},1000)
+        setTimeout(function () { button.tooltip("destroy"); }, 1000)
     },
 
     refreshTotalPrice: function () {
-        var container = $("#total_price_vc");
         $.get(Cart._properties.getTotalPriceLink)
             .done(function (cartHtml) {
-                container.html(cartHtml);
+                $(".total_price").html(cartHtml);
             })
             .fail(function () { console.log("refreshTotalPrice fail!"); });
+
+        $.get(Cart._properties.getTotalCountLink)
+            .done(function (cartHtml) {
+                $(".total_count").html(cartHtml);
+            })
+            .fail(function () { console.log("refreshTotalCount fail!"); });
     },
 
     refreshCartView: function () {
@@ -112,11 +112,17 @@
     },
 
     refreshCartItem: function (id) {
-        var container = $("#" + id);
-        $.get(Cart._properties.getCartViewItemLink + "/" + id)
+        var container = $("#" + id).find(".cart_quantity_input");
+        $.get(Cart._properties.getCartItemCountLink + "/" + id)
             .done(function (cartHtml) {
                 container.html(cartHtml);
-                Cart.addAction();
+            })
+            .fail(function () { console.log("refreshCartItem fail!"); });
+
+        var price = $("#" + id).find(".cart_total_price");
+        $.get(Cart._properties.getCartItemPriceLink + "/" + id)
+            .done(function (cartHtml) {
+                price.html(cartHtml);
             })
             .fail(function () { console.log("refreshCartItem fail!"); });
     }

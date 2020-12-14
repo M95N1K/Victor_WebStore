@@ -7,8 +7,8 @@ using Victor_WebStore.Domain.ViewModels;
 
 namespace Victor_WebStore.ViewComponents
 {
-    public class CartItemViewComponent: ViewComponent
+    public class CartItemCountViewComponent: ViewComponent
     {
-        public IViewComponentResult Invoke(KeyValuePair<ProductViewModel,int> CartItem) => View(CartItem);
+        public IViewComponentResult Invoke(int CartItemCount) => View(CartItemCount);
     }
 }
