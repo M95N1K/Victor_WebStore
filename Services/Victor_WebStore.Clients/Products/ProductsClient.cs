@@ -27,10 +27,10 @@ namespace Victor_WebStore.Clients.Products
             return Get<ProductDTO>($"{_ServiceAddress}/{id}");
         }
 
-        public IEnumerable<ProductDTO> GetProducts(ProductFilter filter=null) => 
+        public PageProductDTO GetProducts(ProductFilter filter=null) => 
             Post(_ServiceAddress, filter ?? new ProductFilter())
             .Content
-            .ReadAsAsync<IEnumerable<ProductDTO>>()
+            .ReadAsAsync<PageProductDTO>()
             .Result;
     }
 }

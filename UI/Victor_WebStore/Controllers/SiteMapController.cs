@@ -26,7 +26,7 @@ namespace Victor_WebStore.Controllers
             foreach (var brand in product.GetBrands())
                 nodes.Add(new SitemapNode(Url.Action("shop","catalog", new { brandId = brand.Id})));
 
-            foreach (var p in product.GetProducts(null))
+            foreach (var p in product.GetProducts(null).ProductsToPage)
             {
                 nodes.Add(new SitemapNode(Url.Action("ProductDetails", "catalog", new { p.Id })));
             }

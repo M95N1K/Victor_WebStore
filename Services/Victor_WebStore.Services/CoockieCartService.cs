@@ -141,7 +141,7 @@ namespace Victor_WebStore.Services
             var products = _productService.GetProducts(new ProductFilter
             {
                 Ids = Cart.Items.Select(i => i.ProductId).ToList()
-            }).Select(p => new ProductViewModel
+            }).ProductsToPage.Select(p => new ProductViewModel
             {
                 Id = p.Id,
                 ImageUrl = p.ImageUrl,
@@ -169,9 +169,9 @@ namespace Victor_WebStore.Services
             {
                 result.Add( new OrderItemDTO
                 {
-                    Price = products.FirstOrDefault(p => p.Id == item.ProductId).Price,
+                    Price = products.ProductsToPage.FirstOrDefault(p => p.Id == item.ProductId).Price,
                     Quantity = item.Quantity,
-                    Product = products.FirstOrDefault(p => p.Id == item.ProductId)
+                    Product = products.ProductsToPage.FirstOrDefault(p => p.Id == item.ProductId)
                 });
             }
 

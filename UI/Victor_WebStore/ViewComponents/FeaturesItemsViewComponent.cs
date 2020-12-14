@@ -42,7 +42,7 @@ namespace Victor_WebStore.ViewComponents
 
             List<ProductViewModel> result = new List<ProductViewModel>();
 
-            foreach (var item in products)
+            foreach (var item in products.ProductsToPage)
             {
                 result.Add(new ProductViewModel
                 {

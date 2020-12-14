@@ -45,7 +45,7 @@ namespace Victor_WebStore.ServicesHost.Controllers
         }
 
         [HttpPost]
-        public IEnumerable<ProductDTO> GetProducts([FromBody]ProductFilter filter=null)
+        public PageProductDTO GetProducts([FromBody]ProductFilter filter=null)
         {
             return _productService.GetProducts(filter);
         }

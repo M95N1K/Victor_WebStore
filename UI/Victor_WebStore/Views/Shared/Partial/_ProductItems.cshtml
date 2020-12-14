@@ -18,6 +18,7 @@
                             <p>@item.Name</p>
                         </a>
                         <a class="btn btn-default add-to-cart"
+                           data-id="@item.Id"
                            asp-controller="Cart" asp-action="AddToCart"
                            asp-route-id="@item.Id" asp-route-returnUrl="@Context.Request.Path">
                         <i class="fa fa-shopping-cart"></i>Добавить в корзину</a>

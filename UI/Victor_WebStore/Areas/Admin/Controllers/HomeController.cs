@@ -17,7 +17,7 @@ namespace Victor_WebStore.Areas.Admin.Controllers
         }
         public IActionResult Index()
         {
-            var products = _productService.GetProducts(null).ToList();
+            var products = _productService.GetProducts(null).ProductsToPage.ToList();
             return View(products);
         }
     }
