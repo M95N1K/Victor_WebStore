@@ -6,19 +6,21 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using System;
+
 using Victor_WebStore.DAL;
 using Victor_WebStore.Domain.Entities;
 using Victor_WebStore.Interfaces.Services;
-using Victor_WebStore.Interfaces.TestApi;
 using Victor_WebStore.Services;
+using Victor_WebStore.Logger;
 
 namespace Victor_WebStore.ServicesHost
 {
     public sealed record Startup(IConfiguration Configuration)
     {
-        
+
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -56,7 +58,7 @@ namespace Victor_WebStore.ServicesHost
             services.AddScoped<ICartService, CoockieCartService>();
             services.AddScoped<IOrderService, SqlOrderService>();
 
-            
+
 
 
             services.AddControllers();
@@ -67,8 +69,9 @@ namespace Victor_WebStore.ServicesHost
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory log)
         {
+            log.AddLog4Net();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

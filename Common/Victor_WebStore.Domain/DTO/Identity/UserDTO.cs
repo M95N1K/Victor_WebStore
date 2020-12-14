@@ -1,6 +1,6 @@
 ﻿using Victor_WebStore.Domain.Entities;
 
-namespace WebStore.Domain.DTO.Identity
+namespace Victor_WebStore.Domain.DTO.Identity
 {
     public abstract class UserDTO
     {

@@ -1,13 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Victor_WebStore.Domain;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Victor_WebStore.DAL;
-using WebStore.Domain;
-using Victor_WebStore.Domain.Entities;
-using Microsoft.AspNetCore.Identity;
+using Victor_WebStore.Domain;
 
 namespace WebStore.ServiceHosting.Controllers.Identity
 {

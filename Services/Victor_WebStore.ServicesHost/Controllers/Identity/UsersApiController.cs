@@ -1,26 +1,25 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Victor_WebStore.Domain.Entities;
-using Victor_WebStore.Domain;
 using Victor_WebStore.DAL;
-using Microsoft.EntityFrameworkCore;
-using WebStore.Domain.DTO.Identity;
-using Microsoft.Extensions.Logging;
+using Victor_WebStore.Domain;
+using Victor_WebStore.Domain.DTO.Identity;
+using Victor_WebStore.Domain.Entities;
 
 namespace Victor_WebStore.ServicesHost.Controllers.Identity
 {
     [Route(WebApiAddress.Identity.User)]
     [ApiController]
     public class UsersApiController : ControllerBase
-{
+    {
         private readonly UserStore<User, IdentityRole, WebStoreContext> _UserStore;
         private readonly ILogger<UsersApiController> _logger;
 
@@ -64,11 +63,9 @@ namespace Victor_WebStore.ServicesHost.Controllers.Identity
             var respone = await _UserStore.UpdateAsync(user);
             if (!respone.Succeeded)
             {
-                _logger.LogError($"Error Set UserName\n Old name: {user.UserName}, New name: {name}");
-                foreach (var item in respone.Errors)
-                {
-                    _logger.LogError($"\tError: {item.Code} - {item.Description}");
-                }
+                var errors = string.Join(" , ", respone.Errors.Select(error => error.Description));
+                _logger.LogWarning($"Error Set UserName\n Old name: {user.UserName}, New name: {name}. Errors {errors}");
+
             }
             else
             {
@@ -94,11 +91,8 @@ namespace Victor_WebStore.ServicesHost.Controllers.Identity
 
             if (!respone.Succeeded)
             {
-                _logger.LogError($"Error Set NormalizedUserName\n Old name: {user.UserName}, New name: {(name)}");
-                foreach (var item in respone.Errors)
-                {
-                    _logger.LogError($"\tError: {item.Code} - {item.Description}");
-                }
+                var errors = string.Join(" , ", respone.Errors.Select(error => error.Description));
+                _logger.LogError($"Error Set NormalizedUserName\n Old name: {user.UserName}, New name: {(name)}. Errors {errors}");
             }
             else _logger.LogInformation($"Set NormalizedUserName OK!");
 
@@ -113,11 +107,8 @@ namespace Victor_WebStore.ServicesHost.Controllers.Identity
 
             if (!creation_result.Succeeded)
             {
-                _logger.LogError($"Error create user\n Old name: {user.UserName}");
-                foreach (var item in creation_result.Errors)
-                {
-                    _logger.LogError($"\tError: {item.Code} - {item.Description}");
-                }
+                var errors = string.Join(" , ", creation_result.Errors.Select(error => error.Description));
+                _logger.LogError($"Error create user\n Old name: {user.UserName}. Errors {errors}");
             }
             else _logger.LogInformation($"Create user OK!");
 
@@ -129,13 +120,11 @@ namespace Victor_WebStore.ServicesHost.Controllers.Identity
         {
             var update_result = await _UserStore.UpdateAsync(user);
 
-            if(!update_result.Succeeded)
+            if (!update_result.Succeeded)
             {
-                _logger.LogError($"Error Update user: User - {user.UserName}");
-                foreach (var item in update_result.Errors)
-                {
-                    _logger.LogError($"\tError: {item.Code} - {item.Description}");
-                }
+                var errors = string.Join(" , ", update_result.Errors.Select(error => error.Description));
+                _logger.LogError($"Error Update user: User - {user.UserName}. Errors {errors}");
+
             }
             else _logger.LogInformation($"Update user OK!");
 
@@ -149,11 +138,8 @@ namespace Victor_WebStore.ServicesHost.Controllers.Identity
 
             if (!delete_result.Succeeded)
             {
-                _logger.LogError($"Error Delete user: User - {user.UserName}");
-                foreach (var item in delete_result.Errors)
-                {
-                    _logger.LogError($"\tError: {item.Code} - {item.Description}");
-                }
+                var errors = string.Join(" , ", delete_result.Errors.Select(error => error.Description));
+                _logger.LogError($"Error Delete user: User - {user.UserName}. Errors {errors}");
             }
             else _logger.LogInformation($"Delete user OK!");
 
@@ -172,7 +158,7 @@ namespace Victor_WebStore.ServicesHost.Controllers.Identity
         public async Task<User> FindByNameAsync(string name)
         {
             User result = await _UserStore.FindByNameAsync(name);
-            _logger.LogDebug($"Find By Name: Name - {name}, Found User - {result.UserName}");
+            _logger.LogDebug($"Find By Name: Name - {name}, Found User - {result?.UserName}");
             return result;
         }
 
@@ -229,13 +215,10 @@ namespace Victor_WebStore.ServicesHost.Controllers.Identity
         {
             await _UserStore.SetPasswordHashAsync(hash.User, hash.Hash);
             IdentityResult result = await _UserStore.UpdateAsync(hash.User);
-            if(!result.Succeeded)
+            if (!result.Succeeded)
             {
-                _logger.LogError($"Error SetPasswordHash: User - {hash.User.UserName}, Hash - {hash.Hash}");
-                foreach (var item in result.Errors)
-                {
-                    _logger.LogError($"\tError: {item.Code} - {item.Description}");
-                }
+                var errors = string.Join(" , ", result.Errors.Select(e => e.Description));
+                _logger.LogError($"Error SetPasswordHash: User - {hash.User.UserName}, Hash - {hash.Hash}. Errors {errors}");
             }
             else
             {
@@ -315,11 +298,8 @@ namespace Victor_WebStore.ServicesHost.Controllers.Identity
             IdentityResult result = await _UserStore.UpdateAsync(user);
             if (!result.Succeeded)
             {
-                _logger.LogError($"SetTwoFactor: User - {user.UserName}, Enable - {enable}");
-                foreach (var item in result.Errors)
-                {
-                    _logger.LogError($"\tError: {item.Code} - {item.Description}");
-                }
+                var errors = string.Join(" , ", result.Errors.Select(e => e.Description));
+                _logger.LogError($"SetTwoFactor: User - {user.UserName}, Enable - {enable}. Errors {errors}");
             }
             else
             {

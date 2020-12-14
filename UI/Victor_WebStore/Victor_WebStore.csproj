@@ -17,6 +17,7 @@
   </ItemGroup>
 
    <ItemGroup>
+     <PackageReference Include="log4net" Version="2.0.12" />
     <PackageReference Include="BuildBundlerMinifier" Version="3.2.449" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.9" />
@@ -32,6 +33,9 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.0" />
+    <PackageReference Include="Serilog.AspNetCore" Version="3.4.0" />
+    <PackageReference Include="Serilog.Extensions.Logging" Version="3.0.1" />
+    <PackageReference Include="Serilog.Extensions.Logging.File" Version="2.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -41,6 +45,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Common\Victor_WebStore.Domain\Victor_WebStore.Domain.csproj" />
+    <ProjectReference Include="..\..\Common\Victor_WebStore.Logger\Victor_WebStore.Logger.csproj" />
     <ProjectReference Include="..\..\Services\Victor_WebStore.Clients\Victor_WebStore.Clients.csproj" />
     <ProjectReference Include="..\..\Services\Victor_WebStore.DAL\Victor_WebStore.DAL.csproj" />
     <ProjectReference Include="..\..\Services\Victor_WebStore.Interfaces\Victor_WebStore.Interfaces.csproj" />

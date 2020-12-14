@@ -10,10 +10,9 @@ using Victor_WebStore.Clients.Base;
 using Victor_WebStore.Domain;
 using Victor_WebStore.Domain.Entities;
 using Victor_WebStore.Interfaces.Services.Identity;
-using WebStore.Domain;
-using WebStore.Domain.DTO.Identity;
+using Victor_WebStore.Domain.DTO.Identity;
 
-namespace WebStore.Clients.Identity
+namespace Victor_WebStore.Clients.Identity
 {
     public class UsersClient : BaseClient, IUsersClient
     {
