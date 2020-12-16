@@ -13,8 +13,8 @@
             </div>
 
             <div class="col-sm-9 padding-right">
-                <div class="features_items">
-                    <!--features_items-->
+                
+                    
                     <div id="catalog_items_container">
                         <partial name="Partial/_ProductItems" model="Model.Products" />
                     </div>
@@ -25,8 +25,20 @@
                             page-url-brandId="@Model.BrandId"
                             page-url-pageSize="@Context.Request.Query["pageSize"]">
                     </paging>
-                </div><!--features_items-->
             </div>
         </div>
     </div>
 </section>
+
+@section Script
+{
+    <script src="~/js/Catalog/CatalogLogick.js"></script>
+    <script src="~/js/loadingoverlay.min.js"></script>
+    <script>
+        $(function() {
+            Catalog.init({
+                getViewLink: "@Url.Action("GetItemsAJAX", "Catalog")"
+            });
+        })
+    </script>
+}

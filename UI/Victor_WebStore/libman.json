@@ -9,6 +9,10 @@
     {
       "library": "jquery@2.2.0",
       "destination": "wwwroot/lib/jquery/"
+    },
+    {
+      "library": "jquery-loading-overlay@2.1.7",
+      "destination": "wwwroot/lib/jquery-loading-overlay/"
     }
   ]
 }

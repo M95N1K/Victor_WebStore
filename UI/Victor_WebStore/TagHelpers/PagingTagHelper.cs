@@ -45,6 +45,10 @@ namespace Victor_WebStore.TagHelpers
             {
                 a.MergeAttribute("data-page", PageViewModel.Page.ToString());
                 li.AddCssClass("active");
+                foreach (var (key, value) in PageUrlValues.Where(v => v.Value != null))
+                {
+                    a.MergeAttribute($"data-{key}", value.ToString());
+                }
             }
             else
             {

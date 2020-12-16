@@ -57,6 +57,7 @@ namespace Victor_WebStore.Services
                 var total_count = listProduct.Count();
                 if (filter?.PageSize > 0)
                     listProduct = listProduct
+                        .OrderBy(p => p.Order)
                         .Skip((filter.Page - 1) * (int)filter.PageSize)
                         .Take((int)filter.PageSize);
 

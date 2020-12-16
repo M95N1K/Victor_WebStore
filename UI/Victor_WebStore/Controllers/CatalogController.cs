@@ -66,7 +66,10 @@ namespace Victor_WebStore.Controllers
 
         #region AJAX_Metods
         public IActionResult GetItemsAJAX(int? categoryId, int? brandId, int page = 1, int? pageSize = null)
-           => PartialView("Partial/_ProductItems", GetPageProduct(categoryId, brandId, page, pageSize));
+        {
+            var tmp = GetPageProduct(categoryId, brandId, page, pageSize);
+            return PartialView("Partial/_ProductItems", tmp);
+        }
 
         private IEnumerable<ProductViewModel> GetPageProduct(int? categoryId, int? brandId, int page = 1, int? pageSize = null)
         {
