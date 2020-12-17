@@ -23,6 +23,12 @@ namespace Victor_WebStore.Controllers
             _logger = logger;
         }
 
+        public async Task<IActionResult> IsNameFree(string UserName)
+        {
+            var user = await _userManager.FindByNameAsync(UserName);
+            return Json(user is null ? true : "Пользователь с таким именем уже существует");
+        }
+        
         [HttpGet]
         public IActionResult Login()
         {

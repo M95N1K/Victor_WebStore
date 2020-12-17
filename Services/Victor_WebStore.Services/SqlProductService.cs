@@ -38,9 +38,7 @@ namespace Victor_WebStore.Services
                 .Include(p => p.Brand)
                 .Include(c => c.Category)
                 .FirstOrDefault(x => x.Id == id);
-            if (result is null)
-                return null;
-            return result.ToDTO();
+            return result?.ToDTO();
         }
 
         public PageProductDTO GetProducts(ProductFilter filter)
@@ -63,7 +61,7 @@ namespace Victor_WebStore.Services
 
             return new PageProductDTO
             {
-                ProductsToPage = listProduct.ToDTO().AsEnumerable(),
+                ProductsToPage = listProduct.AsEnumerable().ToDTO(),
                 TotalCount  = total_count,
             };
              
