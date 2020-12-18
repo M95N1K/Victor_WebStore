@@ -5,6 +5,6 @@ namespace Victor_WebStore.Hub
 {
     public class ChatHub : Microsoft.AspNetCore.SignalR.Hub
     {
-        public async Task SendMessage(string Message) => await Clients.All.SendAsync("MessageFromClient", Message);
+        public async Task SendMessage(string message,string userName) => await Clients.All.SendAsync("MessageFromClient", message, userName);
     }
 }

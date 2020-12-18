@@ -1,11 +1,22 @@
-﻿
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor _ContextAccessor
 @{
     ViewData["Title"] = "SignalRTest";
+    string user;
+    if (_ContextAccessor.HttpContext?.User.Identity != null)
+    {
+        user = _ContextAccessor.HttpContext.User.Identity.Name ?? "<Anonim>";
+    }
+    else
+    {
+        user = "<Anonim>";
+    }
+
 }
 
 <div class="container">
     <h2>Чат</h2>
-    <div id="input_form">
+    <div id="input_form" class="">
         <input type="text" id="message"/>
         <input type="button" class="btn btn-primary" id="send_button" value="Отправить"/>
         <ul id="info">
@@ -21,9 +32,19 @@
         const hub_url = "/chat";
 
         const connection = new signalR.HubConnectionBuilder().withUrl(hub_url).build();
+        const user = "@user";
 
-        connection.on("MessageFromClient", data => $("#info").prepend($("<li></li>").html(data)));
-        $("#send_button").click(e => connection.invoke("SendMessage",$("#message").val()));
+        connection.on("MessageFromClient",
+            function (message, userName) {
+                if (userName === user) {
+                    $("#info").prepend($("<li style='border: 1px solid black;text-align: right;'></li>").html("<h6>-=" + userName + "=-</h6>" + message));
+                } else {
+                    $("#info").prepend($("<li style='border: 1px solid black;text-align: left'></li>").html("<h6>-=" + userName + "=-</h6>" + message));
+                }
+                
+                $("#info").prepend("<br />");
+            });
+        $("#send_button").click(e => connection.invoke("SendMessage",$("#message").val(),user));
 
         connection.start();
     </script>
