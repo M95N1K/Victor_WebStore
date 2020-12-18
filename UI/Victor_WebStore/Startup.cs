@@ -12,6 +12,7 @@ using Victor_WebStore.Clients.Order;
 using Victor_WebStore.Clients.Products;
 using Victor_WebStore.Clients.Values;
 using Victor_WebStore.Domain.Entities;
+using Victor_WebStore.Hub;
 using Victor_WebStore.Interfaces.Services;
 using Victor_WebStore.Interfaces.TestApi;
 using Victor_WebStore.Services;
@@ -26,6 +27,8 @@ namespace Victor_WebStore
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSignalR();
+            
             services.AddMvc();
             services.AddSingleton<IEmployeesService, EmployeesClient>();
             services.AddScoped<IProductService, ProductsClient>();
@@ -80,6 +83,8 @@ namespace Victor_WebStore
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHub<ChatHub>("/chat");
+                
                 //endpoints для областей
                 endpoints.MapControllerRoute(
                     name: "areas",

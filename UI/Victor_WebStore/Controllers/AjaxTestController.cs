@@ -29,5 +29,7 @@ namespace Victor_WebStore.Controllers
             await Task.Delay(delay);
             return PartialView("Partial/_DataView", new AjaxTestDataViewModel(id ?? -1, msg,DateTime.Now));
         }
+
+        public IActionResult SignalRTest() => View();
     }
 }
