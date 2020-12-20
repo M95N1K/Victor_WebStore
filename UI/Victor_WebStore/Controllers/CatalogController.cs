@@ -60,7 +60,7 @@ namespace Victor_WebStore.Controllers
         {
             var product = _productService.GetProductById(id);
             if (product is null)
-                return RedirectToActionPermanent("NotFound404", "home");
+                return RedirectToAction("NotFound404", "home");
             return View(product.FromDTO().ToViewModel());
         }
 
