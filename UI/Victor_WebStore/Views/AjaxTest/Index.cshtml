@@ -1,0 +1,85 @@
+﻿
+@{
+    ViewData["Title"] = "Tecты AJAX";
+}
+
+<div class="container">
+    <h3>@ViewData["Title"]</h3>
+
+    <div class="row">
+        <div class="col-sm-4">
+            <h4>Рендеринг на стороне сервера</h4>
+            <a class="btn btn-default"
+               data-ajax="true"
+               data-ajax-url="@Url.Action("GetHtml", "AjaxTest", new {id = 42, msg = "Hallo World"})"
+               data-ajax-loading="#server_spiner"
+               data-ajax-update="#panel_server">
+                Loading
+            </a>
+            <span id="server_spiner" style="display : none"><i class="fa fa-spinner fa-spin"></i></span>
+            <div id="panel_server"></div>
+        </div>
+
+        <div class="col-sm-4">
+            <h4>Рендеринг на стороне клиента</h4>
+
+            <a class="btn btn-default"
+               data-ajax="true"
+               data-ajax-url="@Url.Action("GetJson", "AjaxTest", new {id = 42, msg = "Hallo World",delay = 3000})"
+               data-ajax-loading="#client_spiner"
+               data-ajax-success="OnLoaded">
+                Loading
+            </a>
+            <span id="client_spiner" style="display : none"><i class="fa fa-spinner fa-spin"></i></span>
+            <div id="panel_client"></div>
+        </div>
+
+        <div class="col-sm-4">
+            <h4>Рендеринг руками</h4>
+
+            <a class="btn btn-default"
+               id="load_data_button">
+                Loading
+            </a>
+            <span id="hand_spiner" style="display : none"><i class="fa fa-spinner fa-spin"></i></span>
+            <div id="panel_js"></div>
+        </div>
+
+
+    </div>
+
+</div>
+
+@section Script
+{
+    <script src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.min.js"></script>
+
+    <script>
+        OnLoaded = data => {
+            console.log("OnLoaded");
+            const panel = $("#panel_client");
+            panel.empty();
+            panel.append("msg" + data.message);
+            panel.append("<br/>");
+            panel.append("server time " + data.serverTime);
+        }
+
+        $("#load_data_button").click(e => {
+            e.preventDefault();
+            console.log("load_data_button");
+            const spin = $("#hand_spiner");
+            spin.removeAttr("style");
+            $.get("@Url.Action("GetJson","AjaxTest")", { id: 42, msg: "Hallo World",delay: 500 })
+                .done(data => {
+                    console.log("load_data_button done");
+                    const panel = $("#panel_js");
+                    panel.empty();
+                    panel.append("msg" + data.message);
+                    panel.append("<br/>");
+                    panel.append("server time " + data.serverTime);
+                    spin.prop("style", "display : none");
+                });
+            
+        });
+    </script>
+}
